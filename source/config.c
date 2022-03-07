@@ -144,7 +144,7 @@ void    configInit(void)
         if (!saveConfig())
             newAppTop(DEFAULT_COLOR, 0, "A problem occured while saving the settings.");
         if (g_bnConfig.isMode3)
-            g_bnConfig.versionToLaunch = V36;
+            g_bnConfig.versionToLaunch = V36HR;
     }
     else
     {
@@ -164,13 +164,14 @@ void    configInit(void)
 
     if (g_bnConfig.isMode3)
     {
-        g_bnConfig.versionToLaunch = V36;
+        g_bnConfig.versionToLaunch = V36HR;
     }
     else
     {
         if (config->flags & LV32) g_bnConfig.versionToLaunch = V32;
         else if (config->flags & LV33) g_bnConfig.versionToLaunch = V33;
         else if (config->flags & LV36) g_bnConfig.versionToLaunch = V36;
+        else if (config->flags & LV36HR) g_bnConfig.versionToLaunch = V36HR;
     }
 error:
     return;
@@ -189,6 +190,7 @@ void    configExit(void)
         if (version == V32) flags = LV32;
         else if (version == V33) flags = LV33;
         else if (version == V36) flags = LV36;
+        else if (version == V36HR) flags = LV36HR;
         else flags = 0;
         config->flags = flags;
     }

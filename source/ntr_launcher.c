@@ -133,7 +133,7 @@ Result      bnPatchAccessCheck(void)
     // If cfw is Luma3DS 9 and higher, skip sm patch
     if (R_SUCCEEDED(ret = svcGetSystemInfo(&out, 0x10000, 0)) && GET_VERSION_MAJOR((u32)out) >= 9)
         return (0);
-	
+
     ret = patchRemoteProcess(bnConfig->SMPid, bnConfig->SMPatchAddr, smPatchBuf, 8);
     check_sec(ret, SMPATCH_FAILURE);
     return (0);
@@ -151,7 +151,7 @@ u32 loadNTRBin(void)
     char                path[0x100];
 
 
-    extern const char   *outNtrVersionStrings[3];
+    extern const char   *outNtrVersionStrings[4];
 
     if (bnConfig->versionToLaunch == V32)
         strJoin(path, "/", "ntr.bin");
@@ -160,7 +160,7 @@ u32 loadNTRBin(void)
 
     if (bnConfig->versionToLaunch == V32)
         strcpy(ntrConfig->path, path);
-    if (bnConfig->versionToLaunch == V36)
+    if (bnConfig->versionToLaunch >= V36)
     {
         strcpy(ntrConfig->path, path);
     #if EXTENDEDMODE
@@ -169,7 +169,7 @@ u32 loadNTRBin(void)
         ntrConfig->memorymode = 0;
     #endif
     }
-    
+
     // Get size
     ntr = fopen(path, "rb");
     check_prim(!ntr, FILEOPEN_FAILURE);
@@ -209,7 +209,7 @@ Result      bnLoadAndExecuteNTR(void)
     u32     *bootArgs;
 
     outAddr = loadNTRBin();
-    if (outAddr == RESULT_ERROR) 
+    if (outAddr == RESULT_ERROR)
     {
             goto error;
     }
@@ -233,10 +233,10 @@ Result      bnBootNTR(void)
     u8      *linearAddress;
 
     linearAddress = NULL;
-    
+
     // Set firm params
     check_prim(bnInitParamsByFirmware(), UNKNOWN_FIRM);
-    
+
     // Alloc temp buffer
     linearAddress = (u8 *)linearMemAlign(TMPBUFFER_SIZE, 0x1000);
     tmpBuffer = linearAddress;
@@ -250,10 +250,10 @@ Result      bnBootNTR(void)
 	// Patch custom PM
 	ret = bnPatchCustomPM();
 	check_prim(ret, CUSTOM_PM_PATCH_FAIL);
-    
+
     // Init home menu params
     check_sec(bnInitParamsByHomeMenu(), UNKNOWN_HOMEMENU);
-    
+
     // Free temp buffer
     linearFree(linearAddress);
 

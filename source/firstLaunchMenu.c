@@ -350,27 +350,27 @@ static void    setFiles(void)
 
     newAppTop(COLOR_BLANK, NEWLINE | SKINNY, "Setting up files...");
 
-    newAppTop(COLOR_BLANK, SKINNY, "Setting up 3.2...");
-    updateUI();
-    ret = loadAndPatch(V32);
-    if (!bnConfig->isDebug)
-        removeAppTop();
-    if (ret)
-        newAppTop(COLOR_SALMON, SKINNY, "Setting up 3.2... Error.");
-    else
-        newAppTop(COLOR_LIMEGREEN, SKINNY, "Setting up 3.2... Done.");
-    updateUI();
+    // newAppTop(COLOR_BLANK, SKINNY, "Setting up 3.2...");
+    // updateUI();
+    // ret = loadAndPatch(V32);
+    // if (!bnConfig->isDebug)
+    //     removeAppTop();
+    // if (ret)
+    //     newAppTop(COLOR_SALMON, SKINNY, "Setting up 3.2... Error.");
+    // else
+    //     newAppTop(COLOR_LIMEGREEN, SKINNY, "Setting up 3.2... Done.");
+    // updateUI();
 
-    newAppTop(COLOR_BLANK, SKINNY, "Setting up 3.3...");
-    updateUI();
-    ret = loadAndPatch(V33);
-    if (!bnConfig->isDebug)
-        removeAppTop();
-    if (ret)
-        newAppTop(COLOR_SALMON, SKINNY, "Setting up 3.3... Error.");
-    else
-        newAppTop(COLOR_LIMEGREEN, SKINNY, "Setting up 3.3... Done.");
-    updateUI();
+    // newAppTop(COLOR_BLANK, SKINNY, "Setting up 3.3...");
+    // updateUI();
+    // ret = loadAndPatch(V33);
+    // if (!bnConfig->isDebug)
+    //     removeAppTop();
+    // if (ret)
+    //     newAppTop(COLOR_SALMON, SKINNY, "Setting up 3.3... Error.");
+    // else
+    //     newAppTop(COLOR_LIMEGREEN, SKINNY, "Setting up 3.3... Done.");
+    // updateUI();
 
     newAppTop(COLOR_BLANK, SKINNY, "Setting up 3.6...");
     updateUI();
@@ -381,6 +381,17 @@ static void    setFiles(void)
         newAppTop(COLOR_SALMON, SKINNY, "Setting up 3.6... Error.");
     else
         newAppTop(COLOR_LIMEGREEN, SKINNY, "Setting up 3.6... Done.");
+    updateUI();
+
+    newAppTop(COLOR_BLANK, SKINNY, "Setting up 3.6...");
+    updateUI();
+    ret = loadAndPatch(V36HR);
+    if (!bnConfig->isDebug)
+        removeAppTop();
+    if (ret)
+        newAppTop(COLOR_SALMON, SKINNY, "Setting up 3.6 HR... Error.");
+    else
+        newAppTop(COLOR_LIMEGREEN, SKINNY, "Setting up 3.6 HR... Done.");
     updateUI();
 
     /*

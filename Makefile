@@ -14,7 +14,7 @@ endif
 FONZD = 0
 PABLOMK7 = 1
 EXTENDEDMODE = 0
-DEBUG = 0
+DEBUG = 1
 
 ifeq ($(EXTENDEDMODE), 1)
     ifeq ($(FONZD), 1)
@@ -47,7 +47,7 @@ VERSION_MICRO := 4
 
 
 
-BUILD_FLAGS := -march=armv6k -mtune=mpcore -mfloat-abi=hard
+BUILD_FLAGS := -march=armv6k -mtune=mpcore -mfloat-abi=hard -D__3DS__
 BUILD_FLAGS_CC := -g -Wall -Wno-strict-aliasing -O3 -mword-relocations \
 					-fomit-frame-pointer -ffast-math $(ARCH) $(INCLUDE) -DARM11 -D_3DS $(BUILD_FLAGS) \
 					-DFONZD_BANNER=${FONZD} -DPABLOMK7_BANNER=${PABLOMK7} \

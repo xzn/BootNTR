@@ -108,6 +108,7 @@ typedef enum    version_e
     V32 = 0,
     V33 = 1,
     V36 = 2,
+    V36HR = 3,
 }               version_t;
 
 /*

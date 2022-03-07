@@ -22,7 +22,8 @@ enum configFlags
     LV32 = BIT(0),
     LV33 = BIT(1),
     LV36 = BIT(2),
-    CUSTOM_PLUGIN_PATH = BIT(3)
+    CUSTOM_PLUGIN_PATH = BIT(3),
+    LV36HR = BIT(4),
 };
 
 typedef struct  config_s
