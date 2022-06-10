@@ -43,13 +43,13 @@ LIBRARIES := citro3d ctru png z m
 
 VERSION_MAJOR := 2
 VERSION_MINOR := 13
-VERSION_MICRO := 4
+VERSION_MICRO := 5
 
 
 
 BUILD_FLAGS := -march=armv6k -mtune=mpcore -mfloat-abi=hard
 BUILD_FLAGS_CC := -g -Wall -Wno-strict-aliasing -O3 -mword-relocations \
-					-fomit-frame-pointer -ffast-math $(ARCH) $(INCLUDE) -DARM11 -D_3DS $(BUILD_FLAGS) \
+					-fomit-frame-pointer -ffast-math $(ARCH) $(INCLUDE) -D__3DS__ $(BUILD_FLAGS) \
 					-DFONZD_BANNER=${FONZD} -DPABLOMK7_BANNER=${PABLOMK7} \
 					-DAPP_VERSION_MAJOR=${VERSION_MAJOR} \
 					-DAPP_VERSION_MINOR=${VERSION_MINOR} \
