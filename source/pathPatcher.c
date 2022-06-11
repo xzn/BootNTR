@@ -66,6 +66,21 @@ const char *outNtrVersionStrings[3] =
     "ntr_3_6.bin"
 };
 
+// There was a bug in libctu where DMAState was read as a u32 instead of a u8.
+// In order to fix the NTR bins, we have to patch those bugs by changing a LDR to LDRB
+static void fixDMAStateBug(u32* start, size_t size) {
+    const u8 ldrDMAStatePat1[] = {0x14, 0x30, 0x9D, 0xE5, 0x00, 0x00, 0x52, 0xE3}; // NTR 3.2, 3.3, O3DS 3.6
+    const u8 ldrDMAStatePat2[] = {0x14, 0x20, 0x9D, 0xE5, 0x5C, 0x30, 0x93, 0xE5}; // NTR N3DS 3.6
+    u32* end = start + size/4 - sizeof(ldrDMAStatePat1)/4;
+    while(start != end) {
+        if (memcmp(start, ldrDMAStatePat1, sizeof(ldrDMAStatePat1)) == 0 || memcmp(start, ldrDMAStatePat2, sizeof(ldrDMAStatePat2)) == 0) {
+            ((u8*)start)[2] = 0xDD; // Convert LDR to LDRB
+            break;
+        }
+        start++;
+    }
+}
+
 static void patchBinary(u8 *mem, int size)
 {
     int     i;
@@ -172,6 +187,7 @@ Result  loadAndPatch(version_t version)
     fread(mem, size, 1, ntr);
     fclose(ntr);
     svcFlushProcessDataCache(CURRENT_PROCESS_HANDLE, (u32)mem, newSize);
+    fixDMAStateBug((u32*)mem, size);
     if (version != V32)
         patchBinary(mem, size);
     ntr = fopen(outPath, "wb");

@@ -44,21 +44,6 @@ bool        isPluginLoaderLuma()
 	return state == 2;
 }
 
-// There was a bug in libctu where DMAState was read as a u32 instead of a u8.
-// In order to fix the NTR bins, we have to patch those bugs by changing a LDR to LDRB
-void        fixDMAStateBug(u32* start, size_t size) {
-    const u8 ldrDMAStatePat1[] = {0x14, 0x30, 0x9D, 0xE5, 0x00, 0x00, 0x52, 0xE3}; // NTR 3.2, 3.3, O3DS 3.6
-    const u8 ldrDMAStatePat2[] = {0x14, 0x20, 0x9D, 0xE5, 0x5C, 0x30, 0x93, 0xE5}; // NTR N3DS 3.6
-    u32* end = start + size/4 - sizeof(ldrDMAStatePat1)/4;
-    while(start != end) {
-        if (memcmp(start, ldrDMAStatePat1, sizeof(ldrDMAStatePat1)) == 0 || memcmp(start, ldrDMAStatePat2, sizeof(ldrDMAStatePat2)) == 0) {
-            ((u8*)start)[2] = 0xDD; // Convert LDR to LDRB
-            break;
-        }
-        start++;
-    }
-}
-
 u32			findCustomPMsvcRunPattern(u32* outaddr)
 {
 	Handle prochand;
@@ -205,7 +190,6 @@ u32 loadNTRBin(void)
     memset(mem, 0, alignedSize * 2);
     u8 *temp = (u8 *)calloc(1, alignedSize);
     fread(temp, size, 1, ntr);
-    fixDMAStateBug((u32*)temp, size);
     fclose(ntr);
     svcFlushProcessDataCache(getCurrentProcessHandle(), (u32)temp, alignedSize);
 
