@@ -66,6 +66,7 @@ typedef uint8_t   u8;
 #define LOAD_FAILED                 (char *)s_error[17]
 #define NTR_ALREADY_LAUNCHED        (char *)s_error[18]
 #define CUSTOM_PM_PATCH_FAIL        (char *)s_error[19]
+#define LUMA_3GX_NOT_INSTALLED      (char *)s_error[20]
 
 static const char * const s_error[] =
 {
@@ -88,7 +89,8 @@ static const char * const s_error[] =
     "FILE_COPY_ERROR",
     "LOAD_AND_EXECUTE",
     "NTR is already running",
-	"CUSTOM_PM_PATCH_FAIL"
+	"CUSTOM_PM_PATCH_FAIL",
+    "Luma3DS 3GX\nnot installed"
 };
 
 typedef struct  updateData_s

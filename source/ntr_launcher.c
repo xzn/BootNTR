@@ -234,6 +234,9 @@ Result      bnBootNTR(void)
 
     linearAddress = NULL;
 
+    // Check 3GX Loader
+    check_prim(isPluginLoaderLuma() ? 0 : -1, LUMA_3GX_NOT_INSTALLED);
+    
     // Set firm params
     check_prim(bnInitParamsByFirmware(), UNKNOWN_FIRM);
 

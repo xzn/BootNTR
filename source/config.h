@@ -10,7 +10,7 @@
     (((major)<<24)|((minor)<<16)|((revision)<<8))
 #endif
 
-#define CURRENT_CONFIG_VERSION  SYSTEM_VERSION(1, 0, 11)
+#define CURRENT_CONFIG_VERSION  SYSTEM_VERSION(1, 0, 12)
 
 #define SECONDS_IN_WEEK     604800
 #define SECONDS_IN_DAY      86400
