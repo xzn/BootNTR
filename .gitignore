@@ -252,5 +252,6 @@ ModelManifest.xml
 *.elf
 *.cia
 *.3dsx
+romfs/*.bin
 output/
 BootNTR.code-workspace
