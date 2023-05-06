@@ -107,7 +107,10 @@ static void patchBinary(u8 *mem, int size)
         if (offset == 0)
         {
             if (bnConfig->isDebug)
+            {
                 newAppTop(DEFAULT_COLOR, TINY, "Not found \"%s\".", str);
+                updateUI();
+            }
             continue;
         }
 
@@ -123,6 +126,7 @@ static void patchBinary(u8 *mem, int size)
             {
                 newAppTop(DEFAULT_COLOR, TINY, "Pointer for \"%s\"", str);
                 newAppTop(DEFAULT_COLOR, TINY, "is missing!Aborting.\n");
+                updateUI();
             }
             break;
         }

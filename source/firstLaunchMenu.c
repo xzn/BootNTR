@@ -326,7 +326,8 @@ static void    setFiles(void)
         newAppTop(COLOR_BLANK, SKINNY, "Creating directory:");
         updateUI();
         ret = createDir(bnConfig->config->binariesPath + 5);
-        removeAppTop();
+        if (!bnConfig->isDebug)
+            removeAppTop();
         if (ret)
             newAppTop(COLOR_SALMON, SKINNY, "Creating directory: Failed");
         else
@@ -340,7 +341,8 @@ static void    setFiles(void)
         newAppTop(COLOR_BLANK, SKINNY, "Creating directory:");
         updateUI();
         ret = createDir(bnConfig->config->pluginPath + 5);
-        removeAppTop();
+        if (!bnConfig->isDebug)
+            removeAppTop();
         if (ret)
             newAppTop(COLOR_SALMON, SKINNY, "Creating directory: Failed");
         else
@@ -383,7 +385,7 @@ static void    setFiles(void)
         newAppTop(COLOR_LIMEGREEN, SKINNY, "Setting up 3.6... Done.");
     updateUI();
 
-    newAppTop(COLOR_BLANK, SKINNY, "Setting up 3.6...");
+    newAppTop(COLOR_BLANK, SKINNY, "Setting up 3.6 HR ...");
     updateUI();
     ret = loadAndPatch(V36HR);
     if (!bnConfig->isDebug)
