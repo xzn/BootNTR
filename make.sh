@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
-make clean
+rm -r output/*
 make -j1 $@
