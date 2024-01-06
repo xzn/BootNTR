@@ -156,6 +156,8 @@ Result  loadAndPatch(version_t version)
     bool    isNew3DS = bnConfig->isNew3DS;
 
     if (!isNew3DS) {
+        clearTop(1);
+        newAppTop(COLOR_SALMON, SKINNY, "Support New 3DS only (Old 3DS detected).");
         goto error;
     }
 

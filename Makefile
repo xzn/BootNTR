@@ -14,7 +14,7 @@ endif
 FONZD = 0
 PABLOMK7 = 1
 EXTENDEDMODE = 0
-DEBUG = 1
+DEBUG = 0
 
 ifeq ($(EXTENDEDMODE), 1)
     ifeq ($(FONZD), 1)

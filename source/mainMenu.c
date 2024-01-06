@@ -108,18 +108,18 @@ int     mainMenu(void)
     u32         keys;
     bool        noTimer;
 
-	static bool first = true;
-	if (first && !bnConfig->isMode3) {
-		// V32Button->show(V32Button);
-		// V33Button->show(V33Button);
-		V36Button->show(V36Button);
+    static bool first = true;
+    if (first && !bnConfig->isMode3) {
+        // V32Button->show(V32Button);
+        // V33Button->show(V33Button);
+        V36Button->show(V36Button);
         V36Button->show(V36HRButton);
-		// addBottomObject(V32Button);
-		// addBottomObject(V33Button);
-		addBottomObject(V36Button);
+        // addBottomObject(V32Button);
+        // addBottomObject(V33Button);
+        addBottomObject(V36Button);
         addBottomObject(V36HRButton);
-		first = false;
-	}
+        first = false;
+    }
 
     waitAllKeysReleased();
     if (!bnConfig->isMode3 && !bnConfig->config->flags) noTimer = true;
