@@ -137,7 +137,7 @@ int     mainMenu(void)
     while (userTouch == false)
     {
         keys = hidKeysDown() | hidKeysHeld();
-        if (keys == (KEY_L | KEY_R | KEY_X | KEY_DUP)) goto dumpMode;
+        // if (keys == (KEY_L | KEY_R | KEY_X | KEY_DUP)) goto dumpMode;
         if (keys && !bnConfig->isMode3)
         {
             noTimer = true;
@@ -170,11 +170,11 @@ abort:
     appInfoEnableAutoUpdate();
     return (0);
     
-dumpMode:
-    removeAppStatus();
-    appInfoEnableAutoUpdate();
-    ntrDumpMode();
-    return (2);
+// dumpMode:
+//     removeAppStatus();
+//     appInfoEnableAutoUpdate();
+//     ntrDumpMode();
+//     return (2);
 
 }
 

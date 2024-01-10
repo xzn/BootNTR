@@ -252,6 +252,7 @@ again:
             g_status |= e_MAIN;
             hideText(pluginPathText);
             hideText(binPathText);
+            wait_keys_clear();
             return;
         }
     }
@@ -280,6 +281,7 @@ static void defaultSettings(void)
         {
             saveSettingButton->hide(saveSettingButton);
             g_status |= e_MAIN;
+            wait_keys_clear();
             break;
         }
     }
@@ -308,6 +310,7 @@ void secondSettings(void)
         if (keys & KEY_B)
         {
             g_status |= e_MAIN;
+            wait_keys_clear();
             break;
         }
     }
@@ -419,9 +422,10 @@ static void    setFiles(void)
     //wait(3);
 }
 
-void firstLaunch(void)
+int firstLaunch(void)
 {
     u32         status;
+    int ret = 0;
 
     initSettingsMenu();
     appInfoDisableAutoUpdate();
@@ -437,6 +441,18 @@ again:
     changeBottomFooter(NULL);
     while (!(status & e_EXIT))
     {
+        {
+            hidScanInput();
+            u32 keys = hidKeysDown() | hidKeysHeld();
+            if (keys & KEY_B) {
+                g_exit = true;
+                ret = 1;
+                newAppTop(DEFAULT_COLOR, 0, "Loading aborted.");
+                updateUI();
+                wait(2);
+                goto abort;
+            }
+        }
         updateUI();
         if (status & e_MAIN) goto again;
         else if (status & e_DEFAULT) defaultSettings();
@@ -445,7 +461,9 @@ again:
         status = g_status;
     }
     setFiles();
+abort:
     exitSettingsMenu();
     appInfoEnableAutoUpdate();
     updateUI();
+    return ret;
 }

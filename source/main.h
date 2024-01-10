@@ -140,7 +140,9 @@ int     createDir(const char *path);
 /*
 ** common_functions.c
 */
+extern bool     g_exit;
 bool    abort_and_exit(void);
+void    wait_keys_clear(void);
 u32     getCurrentProcessHandle(void);
 void    flushDataCache(void);
 void    doFlushCache(void);

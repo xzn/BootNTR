@@ -3,7 +3,16 @@
 extern u8       *tmpBuffer;
 extern char     *g_primary_error;
 extern char     *g_secondary_error;
-extern bool     g_exit;
+
+void    wait_keys_clear(void)
+{
+    while (1)
+    {
+        hidScanInput();
+        if ((hidKeysDown() | hidKeysUp() | hidKeysHeld()) == 0)
+            break;
+    }
+}
 
 bool    abort_and_exit(void)
 {
@@ -13,12 +22,7 @@ bool    abort_and_exit(void)
         g_exit = true;
         g_primary_error = USER_ABORT;
         newAppStatus(DEFAULT_COLOR, CENTER | SKINNY | SMALL, "Loading aborted");
-        while (1)
-        {
-            hidScanInput();
-            if ((hidKeysDown() | hidKeysUp() | hidKeysHeld()) == 0)
-                break;
-        }
+        wait_keys_clear();
         return (true);
     }
     return (false);

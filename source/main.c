@@ -16,6 +16,7 @@ int main(void)
     u32         keys;
     u32         kernelVersion;
     int         ret;
+    int         boot_success = 0;
 
     gfxInitDefault();
     drawInit();
@@ -27,7 +28,10 @@ int main(void)
     keys = (hidKeysDown() | hidKeysHeld());
     if (keys & KEY_SELECT)
         resetConfig();
-    configInit();
+    if (configInit() != 0) {
+        g_exit = true;
+        goto exit;
+    }
 
     // If keys == X or if config say we should check an update
     /*if (keys & KEY_X || bnConfig->checkForUpdate)
@@ -61,6 +65,7 @@ int main(void)
         if (!ret)
         {
             newAppStatus(DEFAULT_COLOR, CENTER | BOLD | NEWLINE, "Success !");
+            boot_success = 1;
 
         #if EXTENDEDMODE
 
@@ -124,7 +129,8 @@ waitForExit:
         }
     }
 exit:
-    configExit();
+    if (boot_success)
+        configExit();
     exitMainMenu();
     exitUI();
     acExit();

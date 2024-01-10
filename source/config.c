@@ -65,6 +65,7 @@ bool    saveConfig(void)
 
     if (!config)
         goto error;
+    config->version = CURRENT_CONFIG_VERSION;
     if (!fileExists(configDir))
         createDir(configDir);
     if (!fileExists(configDir)) goto error;
@@ -112,7 +113,7 @@ exit:
     return;
 }
 
-void    configInit(void)
+int    configInit(void)
 {
     config_t    *config;
     Handle      fsuHandle = *fsGetSessionHandle();
@@ -123,6 +124,12 @@ void    configInit(void)
    //  FSUSER_Initialize(fsuHandle);
 
     APT_CheckNew3DS(&isNew3DS);
+    if (!isNew3DS) {
+        newAppTop(DEFAULT_COLOR, 0, "This version of BootNTR supports New 3DS only.");
+        updateUI();
+        wait(2);
+        goto error;
+    }
 
     memset(&g_ntrConfig, 0, sizeof(g_ntrConfig));
     memset(&g_bnConfig, 0, sizeof(g_bnConfig));
@@ -135,15 +142,26 @@ void    configInit(void)
     g_bnConfig.isNew3DS = isNew3DS;
 
     config = (config_t *)calloc(1, sizeof(config_t));
-    if (!config) goto error;
+    if (!config) {
+        newAppTop(DEFAULT_COLOR, 0, "FATAL calloc failed.");
+        updateUI();
+        wait(2);
+        goto error;
+    }
     g_bnConfig.config = config;
     if (!loadConfigFromFile(config))
     {
-        saveConfig();
-        firstLaunch();
-        if (!saveConfig())
+        // saveConfig();
+        memset(config, 0, sizeof(config_t));
+        if (firstLaunch()!= 0) {
+            goto error;
+        }
+        if (!saveConfig()) {
             newAppTop(DEFAULT_COLOR, 0, "A problem occured while saving the settings.");
-        if (g_bnConfig.isMode3)
+            updateUI();
+            wait(2);
+        }
+        // if (g_bnConfig.isMode3)
             g_bnConfig.versionToLaunch = V36HR;
     }
     else
@@ -172,9 +190,12 @@ void    configInit(void)
         else if (config->flags & LV33) g_bnConfig.versionToLaunch = V33;
         else if (config->flags & LV36) g_bnConfig.versionToLaunch = V36;
         else if (config->flags & LV36HR) g_bnConfig.versionToLaunch = V36HR;
+        else g_bnConfig.versionToLaunch = V36HR;
     }
+    return 0;
+
 error:
-    return;
+    return -1;
 }
 
 void    configExit(void)
