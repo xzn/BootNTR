@@ -107,10 +107,10 @@ typedef struct  s_BLOCK
 
 typedef enum    version_e
 {
-    V32 = 0,
-    V33 = 1,
-    V36 = 2,
-    V36HR = 3,
+    // V32 = 0,
+    // V33 = 1,
+    SELECT_V36 = 2,
+    SELECT_V36HR = 3,
 }               version_t;
 
 /*
@@ -162,7 +162,7 @@ bool        isPluginLoaderLuma();
 Result      bnPatchAccessCheck(void);
 Result      bnLoadAndExecuteNTR(void);
 Result      bnBootNTR(void);
-void        launchNTRDumpMode(void);
+// void        launchNTRDumpMode(void);
 
 /*
 ** pathPatcher.c

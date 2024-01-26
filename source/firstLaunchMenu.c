@@ -28,7 +28,7 @@ static sprite_t         *mainWindow;
 static sprite_t         *customWindow;
 static sprite_t         *defaultWindow;
 static sprite_t         *secondWindow;
-static sprite_t         *warningWindow;
+// static sprite_t         *warningWindow;
 static window_t         *window;
 
 static u32              g_status;
@@ -119,13 +119,13 @@ void    initSettingsMenu(void)
     newSpriteFromPNG(&customWindow, "romfs:/sprites/textSprites/customSettingsWindow.png");
     newSpriteFromPNG(&defaultWindow, "romfs:/sprites/textSprites/defaultSettingsWindow.png");
     newSpriteFromPNG(&secondWindow, "romfs:/sprites/textSprites/secondSettingsWindow.png");
-    newSpriteFromPNG(&warningWindow, "romfs:/sprites/textSprites/pluginFolderWarning.png");
+    // newSpriteFromPNG(&warningWindow, "romfs:/sprites/textSprites/pluginFolderWarning.png");
 
     setSpritePos(mainWindow, 46.0f, 65.0f);
     setSpritePos(customWindow, 46.0f, 65.0f);
     setSpritePos(defaultWindow, 46.0f, 65.0f);
     setSpritePos(secondWindow, 46.0f, 65.0f);
-    setSpritePos(warningWindow, 46.0f, 65.0f);
+    // setSpritePos(warningWindow, 46.0f, 65.0f);
 
     newSpriteFromPNG(&sprite, "romfs:/sprites/menuBackground.png");
     setSpritePos(sprite, 43.0f, 20.0f);
@@ -161,22 +161,22 @@ void    exitSettingsMenu(void)
     deleteSprite(customWindow);
     deleteSprite(defaultWindow);
     deleteSprite(secondWindow);
-    deleteSprite(warningWindow);
+    // deleteSprite(warningWindow);
     free(window);
     free(pluginPathText);
     free(binPathText);
 }
 
-static void showWarning(void)
-{
-    waitAllKeysReleased();
-    changeWindowContent(window, warningWindow);
-    okButton->show(okButton);
-    changeBottomFooter(NULL);
-    g_status = 0;
-    while (!g_status)
-        updateUI();
-}
+// static void showWarning(void)
+// {
+//     waitAllKeysReleased();
+//     changeWindowContent(window, warningWindow);
+//     okButton->show(okButton);
+//     changeBottomFooter(NULL);
+//     g_status = 0;
+//     while (!g_status)
+//         updateUI();
+// }
 
 
 static void customSettings(void)
@@ -236,8 +236,8 @@ again:
                 pluginsPathButton->hide(pluginsPathButton);
                 hideText(pluginPathText);
                 hideText(binPathText);
-                if (strncmp("sdmc:/plugin", p_pluginPath, 12))
-                    showWarning();
+                // if (strncmp("sdmc:/plugin", p_pluginPath, 12))
+                //     showWarning();
                 return;
             }
             goto again;
@@ -315,8 +315,8 @@ void secondSettings(void)
         }
     }
     saveSettingButton->hide(saveSettingButton);
-    if (!(g_status & e_MAIN))
-        showWarning();
+    // if (!(g_status & e_MAIN))
+    //     showWarning();
 }
 
 static void    setFiles(void)
@@ -379,7 +379,7 @@ static void    setFiles(void)
 
     newAppTop(COLOR_BLANK, SKINNY, "Setting up 3.6...");
     updateUI();
-    ret = loadAndPatch(V36);
+    ret = loadAndPatch(SELECT_V36);
     if (!bnConfig->isDebug)
         removeAppTop();
     if (ret)
@@ -390,7 +390,7 @@ static void    setFiles(void)
 
     newAppTop(COLOR_BLANK, SKINNY, "Setting up 3.6 HR ...");
     updateUI();
-    ret = loadAndPatch(V36HR);
+    ret = loadAndPatch(SELECT_V36HR);
     if (!bnConfig->isDebug)
         removeAppTop();
     if (ret)

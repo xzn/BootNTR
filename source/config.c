@@ -162,7 +162,7 @@ int    configInit(void)
             wait(2);
         }
         // if (g_bnConfig.isMode3)
-            g_bnConfig.versionToLaunch = V36HR;
+            g_bnConfig.versionToLaunch = SELECT_V36HR;
     }
     else
     {
@@ -182,15 +182,15 @@ int    configInit(void)
 
     if (g_bnConfig.isMode3)
     {
-        g_bnConfig.versionToLaunch = V36HR;
+        g_bnConfig.versionToLaunch = SELECT_V36;
     }
     else
     {
-        if (config->flags & LV32) g_bnConfig.versionToLaunch = V32;
-        else if (config->flags & LV33) g_bnConfig.versionToLaunch = V33;
-        else if (config->flags & LV36) g_bnConfig.versionToLaunch = V36;
-        else if (config->flags & LV36HR) g_bnConfig.versionToLaunch = V36HR;
-        else g_bnConfig.versionToLaunch = V36HR;
+        // if (config->flags & LV32) g_bnConfig.versionToLaunch = V32;
+        // else if (config->flags & LV33) g_bnConfig.versionToLaunch = V33;
+        if (config->flags & CONFIG_FLAG_LV36) g_bnConfig.versionToLaunch = SELECT_V36;
+        else if (config->flags & CONFIG_FLAG_LV36HR) g_bnConfig.versionToLaunch = SELECT_V36HR;
+        else g_bnConfig.versionToLaunch = SELECT_V36HR;
     }
     return 0;
 
@@ -208,10 +208,10 @@ void    configExit(void)
     config = g_bnConfig.config;
     if (!g_bnConfig.isMode3)
     {
-        if (version == V32) flags = LV32;
-        else if (version == V33) flags = LV33;
-        else if (version == V36) flags = LV36;
-        else if (version == V36HR) flags = LV36HR;
+        // if (version == V32) flags = LV32;
+        // else if (version == V33) flags = LV33;
+        if (version == SELECT_V36) flags = CONFIG_FLAG_LV36;
+        else if (version == SELECT_V36HR) flags = CONFIG_FLAG_LV36HR;
         else flags = 0;
         config->flags = flags;
     }

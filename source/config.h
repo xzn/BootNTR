@@ -10,8 +10,8 @@
     (((major)<<24)|((minor)<<16)|((revision)<<8))
 #endif
 
-#define MINOR_REVISION (13)
-#define CURRENT_CONFIG_VERSION  (SYSTEM_VERSION(1, 0, 12) | MINOR_REVISION)
+#define MINOR_REVISION (0)
+#define CURRENT_CONFIG_VERSION  (SYSTEM_VERSION(1, 0, 13) | MINOR_REVISION)
 
 #define SECONDS_IN_WEEK     604800
 #define SECONDS_IN_DAY      86400
@@ -20,11 +20,11 @@
 
 enum configFlags
 {
-    LV32 = BIT(0),
-    LV33 = BIT(1),
-    LV36 = BIT(2),
-    CUSTOM_PLUGIN_PATH = BIT(3),
-    LV36HR = BIT(4),
+    // LV32 = BIT(0),
+    // LV33 = BIT(1),
+    CONFIG_FLAG_LV36 = BIT(2),
+    // CUSTOM_PLUGIN_PATH = BIT(3),
+    CONFIG_FLAG_LV36HR = BIT(4),
 };
 
 typedef struct  config_s

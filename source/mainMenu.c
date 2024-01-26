@@ -24,17 +24,17 @@ void    selectVersion(u32 mode)
     userTouch = true;
     switch(mode)
     {
-        case 1:
-            bnConfig->versionToLaunch = V32;
-            break;
-        case 2:
-            bnConfig->versionToLaunch = V33;
-            break;
+        // case 1:
+        //     bnConfig->versionToLaunch = V32;
+        //     break;
+        // case 2:
+        //     bnConfig->versionToLaunch = V33;
+        //     break;
         case 3:
-            bnConfig->versionToLaunch = V36;
+            bnConfig->versionToLaunch = SELECT_V36;
             break;
         case 4:
-            bnConfig->versionToLaunch = V36HR;
+            bnConfig->versionToLaunch = SELECT_V36HR;
             break;
         default:
             break;
@@ -178,16 +178,16 @@ abort:
 
 }
 
-void    ntrDumpMode(void)
-{
-    newAppTop(DEFAULT_COLOR, TINY | SKINNY, "Starting NTR Dump Mode...");
-    newAppTop(DEFAULT_COLOR, TINY, "");
-    newAppStatus(DEFAULT_COLOR, TINY | SKINNY | CENTER, "NTR Dump Mode");
-    newAppStatus(DEFAULT_COLOR, TINY | SKINNY | CENTER, "See the top screen");
-    updateUI();
-    launchNTRDumpMode();
-    newAppTop(DEFAULT_COLOR, TINY | SKINNY, "Done !");
-    newAppTop(DEFAULT_COLOR, TINY | SKINNY | NEWLINE, "Exiting Dump Mode...");
-    newAppStatus(DEFAULT_COLOR, CENTER | BOLD | NEWLINE, "Done !");
-    updateUI();
-}
+// void    ntrDumpMode(void)
+// {
+//     newAppTop(DEFAULT_COLOR, TINY | SKINNY, "Starting NTR Dump Mode...");
+//     newAppTop(DEFAULT_COLOR, TINY, "");
+//     newAppStatus(DEFAULT_COLOR, TINY | SKINNY | CENTER, "NTR Dump Mode");
+//     newAppStatus(DEFAULT_COLOR, TINY | SKINNY | CENTER, "See the top screen");
+//     updateUI();
+//     launchNTRDumpMode();
+//     newAppTop(DEFAULT_COLOR, TINY | SKINNY, "Done !");
+//     newAppTop(DEFAULT_COLOR, TINY | SKINNY | NEWLINE, "Exiting Dump Mode...");
+//     newAppStatus(DEFAULT_COLOR, CENTER | BOLD | NEWLINE, "Done !");
+//     updateUI();
+// }

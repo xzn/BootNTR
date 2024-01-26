@@ -53,17 +53,23 @@ static char fixedPath[RELOC_COUNT][0x100] = { 0 };
 
 static const char *ntrVersionStrings[5] =
 {
-    "ntr_3_2.bin",
-    "ntr_3_3.bin",
-    "ntr.o3ds.bin",
+    // "ntr_3_2.bin",
+    // "ntr_3_3.bin",
+    "",
+    "",
+
+    // "ntr.o3ds.bin",
     "ntr.n3ds.bin",
     "ntr.n3ds.hr.bin"
 };
 
 const char *outNtrVersionStrings[4] =
 {
-    "ntr_3_2.bin",
-    "ntr_3_3.bin",
+    // "ntr_3_2.bin",
+    // "ntr_3_3.bin",
+    "",
+    "",
+
     "ntr_3_6.bin",
     "ntr_3_6_hr.bin"
 };
@@ -164,13 +170,13 @@ Result  loadAndPatch(version_t version)
     binPath = bnConfig->config->binariesPath;
     plgPath = bnConfig->config->pluginPath;
 
-    strJoin(inPath, "romfs:/", ntrVersionStrings[version + (version >= V36 && isNew3DS)]);
+    strJoin(inPath, "romfs:/", ntrVersionStrings[version/* + (version >= SELECT_V36 && isNew3DS)*/]);
 
     if (!strncmp("sdmc:", binPath, 5)) binPath += 5;
     if (!strncmp("sdmc:", plgPath, 5)) plgPath += 5;
 
-    if (version != V32)
-    {
+    // if (version != V32)
+    // {
         strJoin(fixedPath[PLUGIN], plgPath, fixedName[PLUGIN]);
         strJoin(outPath, binPath, outNtrVersionStrings[version]);
         strJoin(fixedPath[BINARY], binPath, outNtrVersionStrings[version]);
@@ -181,12 +187,12 @@ Result  loadAndPatch(version_t version)
         strJoin(fixedPath[SM], binPath, fixedName[SM]);
         strJoin(fixedPath[HOMEMENU], binPath, fixedName[HOMEMENU]);
         strJoin(fixedPath[ARM], binPath, fixedName[ARM]);
-    }
-    // 3.2
-    else
-    {
-        strcpy(outPath, originalPath[BINARY]);
-    }
+    // }
+    // // 3.2
+    // else
+    // {
+    //     strcpy(outPath, originalPath[BINARY]);
+    // }
     ntr = fopen(inPath, "rb");
     if (!ntr) {
         newAppTop(COLOR_SALMON, SKINNY, "loadAndPatch fopen inPath \"%s\" error.", inPath);
@@ -195,7 +201,8 @@ Result  loadAndPatch(version_t version)
     fseek(ntr, 0, SEEK_END);
     size = ftell(ntr);
     rewind(ntr);
-    newSize = (version == V32) ? size : size + (RELOC_COUNT * 0x100);
+    // newSize = (version == V32) ? size : size + (RELOC_COUNT * 0x100);
+    newSize = size + (RELOC_COUNT * 0x100);
     mem = (u8 *)malloc(newSize);
     if (!mem) {
         newAppTop(COLOR_SALMON, SKINNY, "loadAndPatch malloc error.");
@@ -206,7 +213,7 @@ Result  loadAndPatch(version_t version)
     fclose(ntr);
     svcFlushProcessDataCache(CURRENT_PROCESS_HANDLE, (u32)mem, newSize);
     fixDMAStateBug((u32*)mem, size);
-    if (version != V32)
+    // if (version != V32)
         patchBinary(mem, size);
     ntr = fopen(outPath, "wb");
     if (!ntr) {

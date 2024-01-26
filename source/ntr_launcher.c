@@ -153,14 +153,14 @@ u32 loadNTRBin(void)
 
     extern const char   *outNtrVersionStrings[4];
 
-    if (bnConfig->versionToLaunch == V32)
-        strJoin(path, "/", "ntr.bin");
-    else
+    // if (bnConfig->versionToLaunch == V32)
+    //     strJoin(path, "/", "ntr.bin");
+    // else
         strJoin(path, bnConfig->config->binariesPath + 5, outNtrVersionStrings[bnConfig->versionToLaunch]);
 
-    if (bnConfig->versionToLaunch == V32)
-        strcpy(ntrConfig->path, path);
-    if (bnConfig->versionToLaunch >= V36)
+    // if (bnConfig->versionToLaunch == V32)
+    //     strcpy(ntrConfig->path, path);
+    if (bnConfig->versionToLaunch >= SELECT_V36)
     {
         strcpy(ntrConfig->path, path);
     #if EXTENDEDMODE
@@ -325,20 +325,20 @@ void        printDumpLog(char *str)
     }
 }
 
-void        launchNTRDumpMode(void)
-{
-    u32     isNew3DS = 0;
-    char    buffer[0x20];
+// void        launchNTRDumpMode(void)
+// {
+//     u32     isNew3DS = 0;
+//     char    buffer[0x20];
 
-    APT_CheckNew3DS((bool *)&isNew3DS);
+//     APT_CheckNew3DS((bool *)&isNew3DS);
 
-    ntrConfig->firmVersion = 0;
-    ntrConfig->HomeMenuVersion = 0;
-    ntrConfig->isNew3DS = isNew3DS;
-    ntrConfig->PMPid = 2;
-    ntrConfig->HomeMenuPid = 0xf;
-    bnConfig->versionToLaunch = V33;
-    ntrConfig->ShowDbgFunc = (u32)printDumpLog;
-    copyRemoteMemory(CURRENT_PROCESS_HANDLE, (u32)buffer, CURRENT_PROCESS_HANDLE, (u32)buffer + 0x10, 0x10);
-    bnLoadAndExecuteNTR();
-}
+//     ntrConfig->firmVersion = 0;
+//     ntrConfig->HomeMenuVersion = 0;
+//     ntrConfig->isNew3DS = isNew3DS;
+//     ntrConfig->PMPid = 2;
+//     ntrConfig->HomeMenuPid = 0xf;
+//     bnConfig->versionToLaunch = V33;
+//     ntrConfig->ShowDbgFunc = (u32)printDumpLog;
+//     copyRemoteMemory(CURRENT_PROCESS_HANDLE, (u32)buffer, CURRENT_PROCESS_HANDLE, (u32)buffer + 0x10, 0x10);
+//     bnLoadAndExecuteNTR();
+// }
