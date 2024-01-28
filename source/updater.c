@@ -124,7 +124,7 @@ static Result getUpdateSize(u32 handle, u32 *size)
 static Result downloadUpdate(u32 handle, u32 *bytesRead, void *buffer, u32 size)
 {
     Result res;
-    
+
     res = httpcDownloadData((httpcContext *)handle, buffer, size, bytesRead);
     return (res != HTTPC_RESULTCODE_DOWNLOADPENDING ? res : 0);
 }
@@ -158,7 +158,7 @@ static Result endInstall(u32 handle)
 
     FS_Path tempFile = fsMakePath(PATH_ASCII, "/3ds/BootNTRSelector/BootNTRSelector_update");
     FS_Path finalFile = fsMakePath(PATH_ASCII, "/3ds/BootNTRSelector/BootNTRSelector.3dsx");
-    
+
     FSFILE_Close(handle);
     FSUSER_DeleteFile(ARCHIVE_SDMC, finalFile);
     return (FSUSER_RenameFile(ARCHIVE_SDMC, tempFile, ARCHIVE_SDMC, finalFile));
@@ -195,13 +195,13 @@ static Result installUpdate(void)
     {
         print("An error occurred ! Abort.");
         cancelInstall(installHandle);
-    }   
+    }
     else
     {
         removeAppTop();
         newAppTop(COLOR_LIMEGREEN, SKINNY, "Status: Finished");
         endInstall(installHandle);
-    }        
+    }
     closeUpdateUrl(downloadHandle);
     free(buffer);
 error:
@@ -278,7 +278,7 @@ static Result parseResponseData(const char *jsonText, u32 size, bool *hasUpdate)
     json_value  *assetUrl;
     json_value  *val;
     json_value  *subVal;
-    
+
     url = NULL;
     json = name = assets = assetName = assetUrl = val = subVal = NULL;
     json = json_parse(jsonText, size);
@@ -300,14 +300,14 @@ static Result parseResponseData(const char *jsonText, u32 size, bool *hasUpdate)
                     changelog = val->u.string.ptr;
             }
             if (name != NULL && assets != NULL)
-            {   
+            {
                 if (CheckVersion(name->u.string.ptr))
                 {
                     for (i = 0; i < assets->u.array.length; i++)
                     {
                         val = assets->u.array.values[i];
                         if (val->type == json_object)
-                        {                  
+                        {
                             for (j = 0; j < val->u.object.length; j++)
                             {
                                 subVal = val->u.object.values[j].value;
@@ -377,7 +377,7 @@ static bool checkUpdate(void)
     char            *jsonText;
 
     if (R_SUCCEEDED(res = httpcOpenContext(&context, HTTPC_METHOD_GET, "https://api.github.com/repos/Nanquitas/BootNTR/releases/latest", 1)))
-    {        
+    {
         snprintf(userAgent, sizeof(userAgent), "Mozilla/5.0 (Nintendo 3DS; Mobile; rv:10.0)");
         if (R_SUCCEEDED(res = httpcSetSSLOpt(&context, SSLCOPT_DisableVerify))
             && R_SUCCEEDED(res = httpcAddRequestHeaderField(&context, "User-Agent", userAgent))

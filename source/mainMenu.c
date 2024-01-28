@@ -43,15 +43,15 @@ void    selectVersion(u32 mode)
 
 void    initMainMenu(void)
 {
-	static bool inited = false;
-	if (inited) return;
-	inited = true;
+    static bool inited = false;
+    if (inited) return;
+    inited = true;
 
     if (!bnConfig->isMode3)
     {
         sprite_t *sprite;
 
-        newSpriteFromPNG(&desiredVersionSprite, "romfs:/sprites/textSprites/touchDesiredVersion.png");    
+        newSpriteFromPNG(&desiredVersionSprite, "romfs:/sprites/textSprites/touchDesiredVersion.png");
         newSpriteFromPNG(&tinyButtonBGSprite, "romfs:/sprites/tinyButtonBackground.png");
 
         setSpritePos(desiredVersionSprite, 34.0f, 7.0f);
@@ -63,16 +63,16 @@ void    initMainMenu(void)
         // newSpriteFromPNG(&sprite, "romfs:/sprites/textSprites/33Version.png");
         // V33Button = newButton(11.0f, 94.0f, selectVersion, 2, tinyButtonBGSprite, sprite);
         newSpriteFromPNG(&sprite, "romfs:/sprites/textSprites/36Version.png");
-        V36Button = newButton(11.0f, 94.0f, selectVersion, 3, tinyButtonBGSprite, sprite);      
+        V36Button = newButton(11.0f, 94.0f, selectVersion, 3, tinyButtonBGSprite, sprite);
         newSpriteFromPNG(&sprite, "romfs:/sprites/textSprites/36HRVersion.png");
-        V36HRButton = newButton(11.0f, 152.0f, selectVersion, 4, tinyButtonBGSprite, sprite);      
+        V36HRButton = newButton(11.0f, 152.0f, selectVersion, 4, tinyButtonBGSprite, sprite);
     }
 
     newSpriteFromPNG(&pressExitSprite, "romfs:/sprites/textSprites/pressBExit.png");
 
     setSpritePos(pressExitSprite, 180.0f, 217.0f);
 
-    changeBottomFooter(pressExitSprite); 
+    changeBottomFooter(pressExitSprite);
 
 }
 
@@ -131,7 +131,7 @@ int     mainMenu(void)
         newAppStatus(DEFAULT_COLOR, CENTER | TINY | SKINNY, "Loading %s in %d", versionString[bnConfig->versionToLaunch], timerBak);
         baseTime = time(NULL);
         updateUI();
-    }    
+    }
     keys = 0;
 
     while (userTouch == false)
@@ -157,7 +157,7 @@ int     mainMenu(void)
             }
             if (timer <= 0)
                 break;
-        }        
+        }
         updateUI();
     }
     if (!noTimer)
@@ -169,7 +169,7 @@ int     mainMenu(void)
 abort:
     appInfoEnableAutoUpdate();
     return (0);
-    
+
 // dumpMode:
 //     removeAppStatus();
 //     appInfoEnableAutoUpdate();

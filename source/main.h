@@ -14,7 +14,7 @@
 
 
 #if EXTENDEDMODE
-    
+
     #define TIMER               1
     #if  FONZD_BANNER
         #define CIA_VERSION         "BootNTRSelector-Mode3-FONZD-Banner.cia"
@@ -89,7 +89,7 @@ static const char * const s_error[] =
     "FILE_COPY_ERROR",
     "LOAD_AND_EXECUTE",
     "NTR is already running",
-	"CUSTOM_PM_PATCH_FAIL",
+    "CUSTOM_PM_PATCH_FAIL",
     "Luma3DS 3GX\nnot installed"
 };
 
@@ -183,7 +183,7 @@ u32     findNearestSTMFD(u32 base, u32 pos);
 u32     searchBytes(u32 startAddr, u32 endAddr, u8* pat, int patlen, int step);
 
 /*
-** firmware.c   
+** firmware.c
 */
 Result  bnInitParamsByFirmware(void);
 

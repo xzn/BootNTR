@@ -29,7 +29,7 @@ Result  bnInitParamsByFirmware(void)
         ntrConfig->KProcessCodesetOffset = 0xB0;
         if (kernelVersion == SYSTEM_VERSION(2, 44, 6))
         {
-            //TODO: add old3ds 8.0.0 firmware support 
+            //TODO: add old3ds 8.0.0 firmware support
             ntrConfig->firmVersion = SYSTEM_VERSION(8, 0, 0);
             bnConfig->SvcPatchAddr = 0xDFF82294;
             goto unsupported;
@@ -103,10 +103,10 @@ Result  bnInitParamsByFirmware(void)
         else if (kernelVersion == SYSTEM_VERSION(2, 54, 0) || kernelVersion == SYSTEM_VERSION(2, 55, 0) || kernelVersion == SYSTEM_VERSION(2, 56, 0))
         {
             // old3ds 11.4.0 and 11.8
-			if (kernelVersion == SYSTEM_VERSION(2, 54, 0))
-				ntrConfig->firmVersion = SYSTEM_VERSION(11, 4, 0);
-			else
-				ntrConfig->firmVersion = SYSTEM_VERSION(11, 8, 0);
+            if (kernelVersion == SYSTEM_VERSION(2, 54, 0))
+                ntrConfig->firmVersion = SYSTEM_VERSION(11, 4, 0);
+            else
+                ntrConfig->firmVersion = SYSTEM_VERSION(11, 8, 0);
             ntrConfig->PMSvcRunAddr = 0x00103154;
             ntrConfig->ControlMemoryPatchAddr1 = 0xDFF88514;
             ntrConfig->ControlMemoryPatchAddr2 = 0xDFF88518;
@@ -116,7 +116,7 @@ Result  bnInitParamsByFirmware(void)
         }
         else if (kernelVersion == SYSTEM_VERSION(2, 57, 0) || kernelVersion == SYSTEM_VERSION(2, 58, 0))
         {
-            // old3ds 11.14    
+            // old3ds 11.14
             ntrConfig->firmVersion = SYSTEM_VERSION(11, 14, 0);
             ntrConfig->PMSvcRunAddr = 0x00103154;
             ntrConfig->ControlMemoryPatchAddr1 = 0xDFF88574;
@@ -125,7 +125,7 @@ Result  bnInitParamsByFirmware(void)
             bnConfig->FSPatchAddr = 0x0010F024;
             bnConfig->SMPatchAddr = 0x0010189C;
         }
-        else 
+        else
             goto unsupported;
     }
     else
@@ -238,29 +238,29 @@ Result  bnInitParamsByFirmware(void)
             // new3ds 11.3
             ntrConfig->firmVersion = SYSTEM_VERSION(11, 3, 0);
             ntrConfig->PMSvcRunAddr = 0x00103150;
-            ntrConfig->ControlMemoryPatchAddr1 = 0xDFF885FC; 
+            ntrConfig->ControlMemoryPatchAddr1 = 0xDFF885FC;
             ntrConfig->ControlMemoryPatchAddr2 = 0xDFF88600;
             bnConfig->SvcPatchAddr = 0xDFF8226C;
-            bnConfig->FSPatchAddr = 0x0010F024; 
+            bnConfig->FSPatchAddr = 0x0010F024;
             bnConfig->SMPatchAddr = 0x0010189C;
         }
         else if (kernelVersion == SYSTEM_VERSION(2, 54, 0) || kernelVersion == SYSTEM_VERSION(2, 55, 0) || kernelVersion == SYSTEM_VERSION(2, 56, 0))
         {
             // new3ds 11.4 and 11.8
-			if (kernelVersion == SYSTEM_VERSION(2, 54, 0))
-				ntrConfig->firmVersion = SYSTEM_VERSION(11, 4, 0);
-			else
-				ntrConfig->firmVersion = SYSTEM_VERSION(11, 8, 0);
+            if (kernelVersion == SYSTEM_VERSION(2, 54, 0))
+                ntrConfig->firmVersion = SYSTEM_VERSION(11, 4, 0);
+            else
+                ntrConfig->firmVersion = SYSTEM_VERSION(11, 8, 0);
             ntrConfig->PMSvcRunAddr = 0x00103150;
-            ntrConfig->ControlMemoryPatchAddr1 = 0xDFF8862C; 
+            ntrConfig->ControlMemoryPatchAddr1 = 0xDFF8862C;
             ntrConfig->ControlMemoryPatchAddr2 = 0xDFF88630;
             bnConfig->SvcPatchAddr = 0xDFF8226C;
-            bnConfig->FSPatchAddr = 0x0010F024; 
+            bnConfig->FSPatchAddr = 0x0010F024;
             bnConfig->SMPatchAddr = 0x0010189C;
         }
         else if (kernelVersion == SYSTEM_VERSION(2, 57, 0) || kernelVersion == SYSTEM_VERSION(2, 58, 0))
         {
-            // new3ds 11.14    
+            // new3ds 11.14
             ntrConfig->firmVersion = SYSTEM_VERSION(11, 14, 0);
             ntrConfig->PMSvcRunAddr = 0x00103150;
             ntrConfig->ControlMemoryPatchAddr1 = 0xDFF8868C;
@@ -269,7 +269,7 @@ Result  bnInitParamsByFirmware(void)
             bnConfig->FSPatchAddr = 0x0010F024;
             bnConfig->SMPatchAddr = 0x0010189C;
         }
-        else 
+        else
             goto unsupported;
     }
 

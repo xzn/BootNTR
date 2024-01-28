@@ -56,7 +56,7 @@ u32     copyRemoteMemory(Handle hDst, u32 ptrDst, Handle hSrc, u32 ptrSrc, u32 s
 
     tmpHandle = isPlgLoader ? CUR_PROCESS_HANDLE : hSrc;
     svcUnmapProcessMemoryEx(tmpHandle, LOCAL_MAP_ADDR_SRC, pageSize);
-    
+
     svcSleepThread(10 * 1000 * 1000);
     ntrConfig->InterProcessDmaFinishState = DMASTATE_DONE;
     return 0;
@@ -139,7 +139,7 @@ u32     memfind(u8 *startPos, u32 size, const void *pattern, u32 patternSize)
     return (0);
 }
 
-u32     findNearestSTMFD(u32 base, u32 pos) 
+u32     findNearestSTMFD(u32 base, u32 pos)
 {
     if (pos < base)
     {

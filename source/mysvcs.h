@@ -1,14 +1,14 @@
 
     Result svc_getDmaState(u32* state, Handle dma);
     Result svc_startInterProcessDma(Handle* hdma, Handle dstProcess, void* dst, Handle srcProcess, const void* src, u32 size, u32* config);
-    
+
     Result svc_writeProcessMemory(Handle debug, void const* buffer, u32 addr, u32 size);
     Result svc_readProcessMemory(void* buffer, Handle debug, u32 addr, u32 size);
     Result svc_debugActiveProcess(s32* handle_out, u32 pid);
     Result svc_getProcessList(s32* processCount, u32* processIds, s32 processIdMaxCount);
-    
+
     Result svc_controlProcessMemory(Handle hProcess, void* Addr0, void* Addr1, u32 size, u32 Type, u32 Permissions);
-    
+
     Result svc_openProcess(Handle* process, u32 processId);
     Result svc_addCodeSegment(u32 addr, u32 size);
     Result svc_flushProcessDataCache(Handle handle, u32 addr, u32 size);

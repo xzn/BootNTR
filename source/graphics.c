@@ -20,13 +20,13 @@ void    initUI(void)
     backgroundScreen_t *bg;
 
     newSpriteFromPNG(&topSprite, "romfs:/sprites/topBackground.png");
-    newSpriteFromPNG(&bottomSprite, "romfs:/sprites/bottomBackground.png");    
+    newSpriteFromPNG(&bottomSprite, "romfs:/sprites/bottomBackground.png");
     newSpriteFromPNG(&botStatusSprite, "romfs:/sprites/statusBackground.png");
     newSpriteFromPNG(&topInfoSprite, "romfs:/sprites/topInfoBackground.png");
 
     setSpritePos(topSprite, 0, 0);
     setSpritePos(bottomSprite, 0, 0);
-    
+
     bg = newBackgroundObject(bottomSprite, NULL, NULL);
     botScreen = newDrawableScreen(bg);
     bg = newBackgroundObject(topSprite, NULL, NULL);
@@ -60,7 +60,7 @@ void    exitUI(void)
 static inline void drawUITop(void)
 {
     setScreen(GFX_TOP);
-    
+
     topScreen->draw(topScreen);
 
     setTextColor(COLOR_BLANK);
@@ -71,7 +71,7 @@ static inline void drawUITop(void)
 static inline void drawUIBottom(void)
 {
     setScreen(GFX_BOTTOM);
-    
+
     botScreen->draw(botScreen);
     drawAppInfo(appStatus);
 }

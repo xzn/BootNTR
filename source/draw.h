@@ -10,30 +10,30 @@
 
 typedef struct  sprite_s
 {
-	C3D_Tex         texture;
-	float           posX;
-	float           posY;
-	float           height;
-	float           width;
-	u32				drawColor;
-	bool			isGreyedOut;
-	bool			isHidden;
-	float			depth;
-	float			amount; // from 0 to 1
+    C3D_Tex         texture;
+    float           posX;
+    float           posY;
+    float           height;
+    float           width;
+    u32             drawColor;
+    bool            isGreyedOut;
+    bool            isHidden;
+    float           depth;
+    float           amount; // from 0 to 1
 }               sprite_t;
 
 typedef struct  rectangle_s
 {
-	/* herited from drawableObject_t */
-	bool(*draw)(void *self);
+    /* herited from drawableObject_t */
+    bool(*draw)(void *self);
 
-	float		posX;
-	float		posY;
-	float		width;
-	float		height;
-	sprite_t*	sprite;
-	float		amount; //Range from 0 to 1
-	float		depth;
+    float       posX;
+    float       posY;
+    float       width;
+    float       height;
+    sprite_t*   sprite;
+    float       amount; //Range from 0 to 1
+    float       depth;
 }               rectangle_t;
 
 #include "drawableObject.h"
@@ -65,9 +65,9 @@ typedef struct
 {
     float   position[3];
     float   texcoord[2];
-}           textVertex_s;   
+}           textVertex_s;
 
-typedef struct  drawTarget_s    
+typedef struct  drawTarget_s
 {
     C3D_RenderTarget    *target;
     C3D_Mtx             projection;
@@ -97,7 +97,7 @@ Result      newSpriteFromPNG(sprite_t **out, const char *filename);
 void        deleteSprite(sprite_t *sprite);
 void        setSpritePos(sprite_t *sprite, float posX, float posY);
 void        drawSprite(sprite_t *sprite);
-void		drawRectangle(rectangle_t *rect);
+void        drawRectangle(rectangle_t *rect);
 
 #define COLOR_BLUE          0xFFFF0000
 #define COLOR_RED           0xFF0000FF

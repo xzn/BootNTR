@@ -80,13 +80,13 @@ dbgKernelCacheInterface cacheInterface_NEW111 =
 dbgKernelCacheInterface cacheInterface_NEW112 =
 {
     //for new 3ds 11.2
-    (void*)0xFFF26210, 
+    (void*)0xFFF26210,
     (void*)0xFFF1DF8C,
     (void*)0xFFF1DC34,
     (void*)0xFFF202C8
 };
 
-dbgKernelCacheInterface cacheInterface_NEW113 = 
+dbgKernelCacheInterface cacheInterface_NEW113 =
 {
     //for new 3ds 11.3
     (void*)0xFFF27400,
@@ -106,11 +106,11 @@ dbgKernelCacheInterface cacheInterface_NEW114 =
 
 dbgKernelCacheInterface cacheInterface_NEW118 =
 {
-	//for new 3ds 11.8
-	(void*)0xFFF27480,
-	(void*)0xFFF1E1DC,
-	(void*)0xFFF1DE84,
-	(void*)0xFFF20518
+    //for new 3ds 11.8
+    (void*)0xFFF27480,
+    (void*)0xFFF1E1DC,
+    (void*)0xFFF1DE84,
+    (void*)0xFFF20518
 };
 
 dbgKernelCacheInterface cacheInterface_NEW1114 = {
@@ -166,7 +166,7 @@ dbgKernelCacheInterface cacheInterface_Old112 =
     (void*)0xFFF1FCEC
 };
 
-dbgKernelCacheInterface cacheInterface_Old113 = 
+dbgKernelCacheInterface cacheInterface_Old113 =
 {
     //for old 3ds 11.3
     (void*)0xFFF257D0,
@@ -186,11 +186,11 @@ dbgKernelCacheInterface cacheInterface_Old114 =
 
 dbgKernelCacheInterface cacheInterface_Old118 =
 {
-	//for old 3ds 11.8
-	(void*)0xFFF257B4,
-	(void*)0xFFF1D9C0,
-	(void*)0xFFF1D758,
-	(void*)0xFFF1FEB8
+    //for old 3ds 11.8
+    (void*)0xFFF257B4,
+    (void*)0xFFF1D9C0,
+    (void*)0xFFF1D758,
+    (void*)0xFFF1FEB8
 };
 
 dbgKernelCacheInterface cacheInterface_Old1114 = {
@@ -230,8 +230,8 @@ void    kernelCallback(void)
             cache = &cacheInterface_NEW113;
         else if (firmVersion == SYSTEM_VERSION(11, 4, 0))
             cache = &cacheInterface_NEW114;
-		else if (firmVersion == SYSTEM_VERSION(11, 8, 0))
-			cache = &cacheInterface_NEW118;
+        else if (firmVersion == SYSTEM_VERSION(11, 8, 0))
+            cache = &cacheInterface_NEW118;
         else if (firmVersion == SYSTEM_VERSION(11, 14, 0))
             cache = &cacheInterface_NEW1114;
     }
@@ -251,8 +251,8 @@ void    kernelCallback(void)
             cache = &cacheInterface_Old113;
         else if (firmVersion == SYSTEM_VERSION(11, 4, 0))
             cache = &cacheInterface_Old114;
-		else if (firmVersion == SYSTEM_VERSION(11, 8, 0))
-			cache = &cacheInterface_Old118;
+        else if (firmVersion == SYSTEM_VERSION(11, 8, 0))
+            cache = &cacheInterface_Old118;
         else if (firmVersion == SYSTEM_VERSION(11, 14, 0))
             cache = &cacheInterface_Old1114;
     }

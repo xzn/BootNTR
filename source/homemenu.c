@@ -318,7 +318,7 @@ again:
         ntrConfig->HomeFSUHandleAddr = 0x32efa4;
         ntrConfig->HomeAptStartAppletAddr = 0x12ea08;
     }
-    else 
+    else
     {
         goto unsupported;
     }
@@ -342,19 +342,19 @@ u32     translateAddr(u32 mappedAddr)
     return (mappedAddr - 0x0f000000 + 0x00100000);
 }
 
-u32     locateSwapBuffer(u32 startAddr, u32 endAddr) 
+u32     locateSwapBuffer(u32 startAddr, u32 endAddr)
 {
-    
+
     static u32 pat[] = { 0xe1833000, 0xe2044cff, 0xe3c33cff, 0xe1833004, 0xe1824f93 };
     static u32 pat2[] = { 0xe8830e60, 0xee078f9a, 0xe3a03001, 0xe7902104 };
     static u32 pat3[] = { 0xee076f9a, 0xe3a02001, 0xe7901104, 0xe1911f9f, 0xe3c110ff};
 
     u32 addr = searchBytes(startAddr, endAddr, (u8 *)pat, sizeof(pat), 4);
-    if (!addr) 
+    if (!addr)
     {
         addr = searchBytes(startAddr, endAddr, (u8 *)pat2, sizeof(pat2), 4);
     }
-    if (!addr) 
+    if (!addr)
     {
         addr = searchBytes(startAddr, endAddr, (u8 *)pat3, sizeof(pat3), 4);
     }
@@ -387,16 +387,16 @@ Result  analyseHomeMenu(void)
         return (RESULT_ERROR);
     }
 
-    if(meminfo.size < mapSize) 
+    if(meminfo.size < mapSize)
         mapSize = meminfo.size;
 
     newAppTopDebug(DEFAULT_COLOR, SKINNY, "mapSize: %08x, size: %08x", mapSize, meminfo.size);
 
-    
+
     ntrConfig->HomeFSReadAddr = translateAddr(findNearestSTMFD(text ,searchBytes(text, text + mapSize, (u8 *)patFsRead, sizeof(patFsRead), 4)));
     newAppTopDebug(DEFAULT_COLOR, SKINNY, "HomeFSReadAddr: %08x", ntrConfig->HomeFSReadAddr);
 
-    
+
     u32 t = searchBytes(text, text + mapSize, (u8 *)patFsHandle, sizeof(patFsHandle), 4);
     if (t > 0)
     {
@@ -408,7 +408,7 @@ Result  analyseHomeMenu(void)
     ntrConfig->HomeCardUpdateInitAddr = translateAddr(findNearestSTMFD(text, searchBytes(text, text + mapSize, (u8 *)patCartUpdate, sizeof(patCartUpdate), 4)));
     newAppTopDebug(DEFAULT_COLOR, SKINNY,"HomeCardUpdateInitAddr: %08x", ntrConfig->HomeCardUpdateInitAddr);
 
-    
+
     ntrConfig->HomeAptStartAppletAddr = translateAddr(findNearestSTMFD(text, searchBytes(text, text + mapSize, (u8 *)patStartApplet, sizeof(patStartApplet), 4)));
     newAppTopDebug(DEFAULT_COLOR, SKINNY,"HomeAptStartAppletAddr: %08x", ntrConfig->HomeAptStartAppletAddr);
 
@@ -453,6 +453,6 @@ again:
     svcCloseHandle(hProcess);
     ntrConfig->HomeMenuVersion = SYSTEM_VERSION(1, 0, 0);
     return (ret);
-final:    
+final:
     return (RESULT_ERROR);
 }

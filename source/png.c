@@ -14,7 +14,7 @@ Result textureTile32(C3D_Tex *texture)
     int     width;
     u32     pixel;
     u32     size;
-    
+
     height = (int)texture->height;
     width = (int)texture->width;
     tmp = linearAlloc(width * height * 4);
@@ -24,10 +24,10 @@ Result textureTile32(C3D_Tex *texture)
     {
         pixel = *(u32 *)(texture->data + i);
         *(u32 *)(tmp + i) = __builtin_bswap32(pixel);
-    }    
+    }
     GSPGPU_FlushDataCache(tmp, width * height * 4);
     GSPGPU_FlushDataCache(texture->data, width * height * 4);
-	C3D_SyncDisplayTransfer((u32 *)tmp, GX_BUFFER_DIM(width, height), \
+    C3D_SyncDisplayTransfer((u32 *)tmp, GX_BUFFER_DIM(width, height), \
         (u32*)texture->data, GX_BUFFER_DIM(width, height), TEXTURE_TRANSFER_FLAGS);
     linearFree(tmp);
     return (MAKERESULT(RL_SUCCESS, RS_SUCCESS, RM_COMMON, RD_SUCCESS));

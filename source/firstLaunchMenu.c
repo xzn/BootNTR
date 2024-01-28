@@ -76,7 +76,7 @@ void    initSettingsMenu(void)
     sprite_t    *sprite;
     clearTopScreen();
     clearBottomScreen();
-	initMainMenu();
+    initMainMenu();
     newSpriteFromPNG(&pressBackSprite, "romfs:/sprites/textSprites/pressBBack.png");
     newSpriteFromPNG(&desiredChoiceSprite, "romfs:/sprites/textSprites/touchDesiredChoice.png");
     setSpritePos(desiredChoiceSprite, 34.0f, 6.0f);

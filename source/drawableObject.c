@@ -7,7 +7,7 @@ backgroundScreen_t  *newBackgroundObject(sprite_t *background, \
 
     ret = (backgroundScreen_t *)calloc(1, sizeof(backgroundScreen_t));
     if (!ret) goto error;
-    
+
     if (background) ret->background = background;
     if (header) ret->headerText = header;
     if (footer) ret->footerText = footer;
@@ -134,7 +134,7 @@ window_t    *newWindow(sprite_t *background, sprite_t *title, \
     sprite_t *content)
 {
     window_t    *window;
-    
+
     window = (window_t *)calloc(1, sizeof(window_t));
     if (!window) goto error;
     if (background) window->background = background;
@@ -190,7 +190,7 @@ text_t  *newText(char *str, float posX, float posY, float scaleX, float scaleY, 
     ret->color = color;
     ret->visible = false;
     ret->draw = drawTextObject;
-    return (ret);   
+    return (ret);
 error:
     return (NULL);
 }

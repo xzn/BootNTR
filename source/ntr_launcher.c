@@ -41,76 +41,76 @@ bool        isPluginLoaderLuma()
         }
         else state = 1;
     }
-	return state == 2;
+    return state == 2;
 }
 
-u32			findCustomPMsvcRunPattern(u32* outaddr)
+u32         findCustomPMsvcRunPattern(u32* outaddr)
 {
-	Handle prochand;
-	bool isPlgLoader = isPluginLoaderLuma();
-	u32 textStart = 0;
-	*outaddr = 0;
-	u32 res = 0;
-	res = svcOpenProcess(&prochand, ntrConfig->PMPid); //pm processID
-	if (res)
-	{
-		return res;
-	}
-	s64 info;
-	res = svcGetProcessInfo(&info, prochand, 0x10005); //get start of .text
-	if (res)
-	{
-		return res;
-	}
-	u32* addr = (u32*)(u32)info;
-	textStart = info;
-	res = svcGetProcessInfo(&info, prochand, 0x10002); //get .text size
-	if (res)
-	{
-		return res;
-	}
-	if (isPlgLoader) res = svcMapProcessMemoryExPluginLoader(CURRENT_PROCESS_HANDLE, 0x28000000, prochand, (u32)addr, (u32)info);
-	else res = svcMapProcessMemoryEx(prochand, 0x28000000, (u32)addr, (u32)info); //map PM process memory into this process @ 0x08000000
-	if (res)
-	{
-		return res;
-	}
-	addr = (u32*)0x28000000;
-	u32* endAddr = (u32*)((u32)addr + (u32)info);
-	while (addr < endAddr)
-	{
-		if (*addr == 0xEF000012) // Find svc 0x12
-		{
-			u32* addr2 = addr;
-			while (*addr2 != 0xE92D0030 && (u32)addr - (u32)addr2 < 0x100) addr2--; // Find start of the svc function
-			if ((u32)addr - (u32)addr2 < 0x100)
-			{
-				*outaddr = ((u32)addr2 - 0x28000000) + textStart;
-			}
-			else res = -1;
-			break;
-		}
-		addr++;
-	}
-	if (addr >= endAddr) res = -1;
-	svcUnmapProcessMemoryEx(CURRENT_PROCESS_HANDLE, 0x28000000, (u32)info);
-	svcCloseHandle(prochand);
-	return res;
+    Handle prochand;
+    bool isPlgLoader = isPluginLoaderLuma();
+    u32 textStart = 0;
+    *outaddr = 0;
+    u32 res = 0;
+    res = svcOpenProcess(&prochand, ntrConfig->PMPid); //pm processID
+    if (res)
+    {
+        return res;
+    }
+    s64 info;
+    res = svcGetProcessInfo(&info, prochand, 0x10005); //get start of .text
+    if (res)
+    {
+        return res;
+    }
+    u32* addr = (u32*)(u32)info;
+    textStart = info;
+    res = svcGetProcessInfo(&info, prochand, 0x10002); //get .text size
+    if (res)
+    {
+        return res;
+    }
+    if (isPlgLoader) res = svcMapProcessMemoryExPluginLoader(CURRENT_PROCESS_HANDLE, 0x28000000, prochand, (u32)addr, (u32)info);
+    else res = svcMapProcessMemoryEx(prochand, 0x28000000, (u32)addr, (u32)info); //map PM process memory into this process @ 0x08000000
+    if (res)
+    {
+        return res;
+    }
+    addr = (u32*)0x28000000;
+    u32* endAddr = (u32*)((u32)addr + (u32)info);
+    while (addr < endAddr)
+    {
+        if (*addr == 0xEF000012) // Find svc 0x12
+        {
+            u32* addr2 = addr;
+            while (*addr2 != 0xE92D0030 && (u32)addr - (u32)addr2 < 0x100) addr2--; // Find start of the svc function
+            if ((u32)addr - (u32)addr2 < 0x100)
+            {
+                *outaddr = ((u32)addr2 - 0x28000000) + textStart;
+            }
+            else res = -1;
+            break;
+        }
+        addr++;
+    }
+    if (addr >= endAddr) res = -1;
+    svcUnmapProcessMemoryEx(CURRENT_PROCESS_HANDLE, 0x28000000, (u32)info);
+    svcCloseHandle(prochand);
+    return res;
 }
 
-Result		bnPatchCustomPM() { // If cfw is Luma3DS 10 and higher, patch custom PM sysmodule
-	Result ret = 0;
-	s64 out;
-	if (R_SUCCEEDED(ret = svcGetSystemInfo(&out, 0x10000, 0))
-		&& GET_VERSION_MAJOR((u32)out) >= 10)
-	{
-		u32 patchAddr;
-		check_prim(ret = findCustomPMsvcRunPattern(&patchAddr), CUSTOM_PM_PATCH_FAIL);
-		ntrConfig->PMSvcRunAddr = patchAddr;
-	}
-	else ret = 0;
+Result      bnPatchCustomPM() { // If cfw is Luma3DS 10 and higher, patch custom PM sysmodule
+    Result ret = 0;
+    s64 out;
+    if (R_SUCCEEDED(ret = svcGetSystemInfo(&out, 0x10000, 0))
+        && GET_VERSION_MAJOR((u32)out) >= 10)
+    {
+        u32 patchAddr;
+        check_prim(ret = findCustomPMsvcRunPattern(&patchAddr), CUSTOM_PM_PATCH_FAIL);
+        ntrConfig->PMSvcRunAddr = patchAddr;
+    }
+    else ret = 0;
 error:
-	return ret;
+    return ret;
 }
 
 Result      bnPatchAccessCheck(void)
@@ -236,7 +236,7 @@ Result      bnBootNTR(void)
 
     // Check 3GX Loader
     check_prim(isPluginLoaderLuma() ? 0 : -1, LUMA_3GX_NOT_INSTALLED);
-    
+
     // Set firm params
     check_prim(bnInitParamsByFirmware(), UNKNOWN_FIRM);
 
@@ -249,10 +249,10 @@ Result      bnBootNTR(void)
     check_prim(ret, NTR_ALREADY_LAUNCHED);
     // Patch services
     ret = bnPatchAccessCheck();
-	check_prim(ret, ACCESSPATCH_FAILURE);
-	// Patch custom PM
-	ret = bnPatchCustomPM();
-	check_prim(ret, CUSTOM_PM_PATCH_FAIL);
+    check_prim(ret, ACCESSPATCH_FAILURE);
+    // Patch custom PM
+    ret = bnPatchCustomPM();
+    check_prim(ret, CUSTOM_PM_PATCH_FAIL);
 
     // Init home menu params
     check_sec(bnInitParamsByHomeMenu(), UNKNOWN_HOMEMENU);

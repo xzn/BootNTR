@@ -53,68 +53,68 @@ void printVertex(textVertex_s *vtx)
 }
 
 static void resetC3Denv() {
-	C3D_TexEnv *env;
-	for (int i = 0; i < 4; i++) {
-		env = C3D_GetTexEnv(i);
-		C3D_TexEnvInit(env);
-	}
+    C3D_TexEnv *env;
+    for (int i = 0; i < 4; i++) {
+        env = C3D_GetTexEnv(i);
+        C3D_TexEnvInit(env);
+    }
 }
 
 static void bindImageGreyScale(C3D_Tex *texture, u32 texture_color) {
-	//((0.3 * R) + (0.59 * G) + (0.11 * B)). -> 0xFF1C964C
-	C3D_TexEnv  *env;
-	u32 greyMask = 0xFF1C964C;
-	resetC3Denv();
+    //((0.3 * R) + (0.59 * G) + (0.11 * B)). -> 0xFF1C964C
+    C3D_TexEnv  *env;
+    u32 greyMask = 0xFF1C964C;
+    resetC3Denv();
 
-	C3D_TexBind(0, texture);
-	env = C3D_GetTexEnv(0);
-	C3D_TexEnvSrc(env, C3D_RGB, GPU_TEXTURE0, GPU_CONSTANT, 0);
-	C3D_TexEnvSrc(env, C3D_Alpha, GPU_TEXTURE0, 0, 0);
-	C3D_TexEnvOpRgb(env, 0, 0, 0);
-	C3D_TexEnvOpAlpha(env, 0, 0, 0);
-	C3D_TexEnvFunc(env, C3D_RGB, GPU_MODULATE);
-	C3D_TexEnvFunc(env, C3D_Alpha, GPU_REPLACE);
-	C3D_TexEnvColor(env, texture_color);
-	env = C3D_GetTexEnv(1);
-	C3D_TexEnvSrc(env, C3D_RGB, GPU_PREVIOUS, GPU_CONSTANT, 0);
-	C3D_TexEnvSrc(env, C3D_Alpha, GPU_PREVIOUS, 0, 0);
-	C3D_TexEnvOpRgb(env, 0, 0, 0);
-	C3D_TexEnvOpAlpha(env, 0, 0, 0);
-	C3D_TexEnvFunc(env, C3D_RGB, GPU_MODULATE);
-	C3D_TexEnvFunc(env, C3D_Alpha, GPU_REPLACE);
-	C3D_TexEnvColor(env, greyMask);
-	C3D_TexEnvBufUpdate(C3D_RGB, 0b0010);
-	env = C3D_GetTexEnv(2);
-	C3D_TexEnvSrc(env, C3D_RGB, GPU_PREVIOUS, GPU_PREVIOUS, 0);
-	C3D_TexEnvSrc(env, C3D_Alpha, GPU_PREVIOUS, 0, 0);
-	C3D_TexEnvOpRgb(env, GPU_TEVOP_RGB_SRC_R, GPU_TEVOP_RGB_SRC_G, 0);
-	C3D_TexEnvOpAlpha(env, 0, 0, 0);
-	C3D_TexEnvFunc(env, C3D_RGB, GPU_ADD);
-	C3D_TexEnvFunc(env, C3D_Alpha, GPU_REPLACE);
-	env = C3D_GetTexEnv(3);
-	C3D_TexEnvSrc(env, C3D_RGB, GPU_PREVIOUS, GPU_PREVIOUS_BUFFER, 0);
-	C3D_TexEnvSrc(env, C3D_Alpha, GPU_PREVIOUS, 0, 0);
-	C3D_TexEnvOpRgb(env, 0, GPU_TEVOP_RGB_SRC_B, 0);
-	C3D_TexEnvOpAlpha(env, 0, 0, 0);
-	C3D_TexEnvFunc(env, C3D_RGB, GPU_ADD);
-	C3D_TexEnvFunc(env, C3D_Alpha, GPU_REPLACE);
+    C3D_TexBind(0, texture);
+    env = C3D_GetTexEnv(0);
+    C3D_TexEnvSrc(env, C3D_RGB, GPU_TEXTURE0, GPU_CONSTANT, 0);
+    C3D_TexEnvSrc(env, C3D_Alpha, GPU_TEXTURE0, 0, 0);
+    C3D_TexEnvOpRgb(env, 0, 0, 0);
+    C3D_TexEnvOpAlpha(env, 0, 0, 0);
+    C3D_TexEnvFunc(env, C3D_RGB, GPU_MODULATE);
+    C3D_TexEnvFunc(env, C3D_Alpha, GPU_REPLACE);
+    C3D_TexEnvColor(env, texture_color);
+    env = C3D_GetTexEnv(1);
+    C3D_TexEnvSrc(env, C3D_RGB, GPU_PREVIOUS, GPU_CONSTANT, 0);
+    C3D_TexEnvSrc(env, C3D_Alpha, GPU_PREVIOUS, 0, 0);
+    C3D_TexEnvOpRgb(env, 0, 0, 0);
+    C3D_TexEnvOpAlpha(env, 0, 0, 0);
+    C3D_TexEnvFunc(env, C3D_RGB, GPU_MODULATE);
+    C3D_TexEnvFunc(env, C3D_Alpha, GPU_REPLACE);
+    C3D_TexEnvColor(env, greyMask);
+    C3D_TexEnvBufUpdate(C3D_RGB, 0b0010);
+    env = C3D_GetTexEnv(2);
+    C3D_TexEnvSrc(env, C3D_RGB, GPU_PREVIOUS, GPU_PREVIOUS, 0);
+    C3D_TexEnvSrc(env, C3D_Alpha, GPU_PREVIOUS, 0, 0);
+    C3D_TexEnvOpRgb(env, GPU_TEVOP_RGB_SRC_R, GPU_TEVOP_RGB_SRC_G, 0);
+    C3D_TexEnvOpAlpha(env, 0, 0, 0);
+    C3D_TexEnvFunc(env, C3D_RGB, GPU_ADD);
+    C3D_TexEnvFunc(env, C3D_Alpha, GPU_REPLACE);
+    env = C3D_GetTexEnv(3);
+    C3D_TexEnvSrc(env, C3D_RGB, GPU_PREVIOUS, GPU_PREVIOUS_BUFFER, 0);
+    C3D_TexEnvSrc(env, C3D_Alpha, GPU_PREVIOUS, 0, 0);
+    C3D_TexEnvOpRgb(env, 0, GPU_TEVOP_RGB_SRC_B, 0);
+    C3D_TexEnvOpAlpha(env, 0, 0, 0);
+    C3D_TexEnvFunc(env, C3D_RGB, GPU_ADD);
+    C3D_TexEnvFunc(env, C3D_Alpha, GPU_REPLACE);
 }
 
 static void bindTexture(C3D_Tex *texture, u32 texture_color)
 {
-	C3D_TexEnv  *env;
-	resetC3Denv();
+    C3D_TexEnv  *env;
+    resetC3Denv();
 
-	C3D_TexBind(0, texture);
-	env = C3D_GetTexEnv(0);
-	C3D_TexEnvBufUpdate(C3D_RGB, 0);
-	C3D_TexEnvSrc(env, C3D_RGB, GPU_TEXTURE0, GPU_CONSTANT, 0);
-	C3D_TexEnvSrc(env, C3D_Alpha, GPU_TEXTURE0, 0, 0);
-	C3D_TexEnvOpRgb(env, 0, 0, 0);
-	C3D_TexEnvOpAlpha(env, 0, 0, 0);
-	C3D_TexEnvFunc(env, C3D_RGB, GPU_MODULATE);
-	C3D_TexEnvFunc(env, C3D_Alpha, GPU_REPLACE);
-	C3D_TexEnvColor(env, texture_color);
+    C3D_TexBind(0, texture);
+    env = C3D_GetTexEnv(0);
+    C3D_TexEnvBufUpdate(C3D_RGB, 0);
+    C3D_TexEnvSrc(env, C3D_RGB, GPU_TEXTURE0, GPU_CONSTANT, 0);
+    C3D_TexEnvSrc(env, C3D_Alpha, GPU_TEXTURE0, 0, 0);
+    C3D_TexEnvOpRgb(env, 0, 0, 0);
+    C3D_TexEnvOpAlpha(env, 0, 0, 0);
+    C3D_TexEnvFunc(env, C3D_RGB, GPU_MODULATE);
+    C3D_TexEnvFunc(env, C3D_Alpha, GPU_REPLACE);
+    C3D_TexEnvColor(env, texture_color);
 }
 
 void setSpritePos(sprite_t *sprite, float posX, float posY)
@@ -144,8 +144,8 @@ void drawSprite(sprite_t *sprite)
     u = width / (float)texture->width;
     v = height / (float)texture->height;
 
-	width = floor(width * sprite->amount);
-	u *= sprite->amount;
+    width = floor(width * sprite->amount);
+    u *= sprite->amount;
 
     C3D_BufInfo *bufInfo = C3D_GetBufInfo();
     BufInfo_Init(bufInfo);
@@ -157,56 +157,56 @@ void drawSprite(sprite_t *sprite)
     addTextVertex(x, y, sprite->depth, 0.0f, 0.0f); //left top
     addTextVertex(x + width, y, sprite->depth, u, 0.0f); //right top
 
-	//Bind the sprite's texture
-	if (sprite->isGreyedOut) {
-		bindImageGreyScale(texture, sprite->drawColor);
-	}
-	else {
-		bindTexture(texture, sprite->drawColor);
-	}
+    //Bind the sprite's texture
+    if (sprite->isGreyedOut) {
+        bindImageGreyScale(texture, sprite->drawColor);
+    }
+    else {
+        bindTexture(texture, sprite->drawColor);
+    }
 
-    //Draw 
+    //Draw
     C3D_DrawArrays(GPU_TRIANGLE_STRIP, arrayIndex, 4);
 }
 
 void drawRectangle(rectangle_t *rectangle)
 {
-	float       height;
-	float       width;
-	float       x;
-	float       y;
-	int         arrayIndex;
-	C3D_TexEnv  *env;
+    float       height;
+    float       width;
+    float       x;
+    float       y;
+    int         arrayIndex;
+    C3D_TexEnv  *env;
 
-	if (!rectangle) return;
-	height = rectangle->height;
-	width = ceil(rectangle->width * rectangle->amount);
-	x = rectangle->posX;
-	y = rectangle->posY;
+    if (!rectangle) return;
+    height = rectangle->height;
+    width = ceil(rectangle->width * rectangle->amount);
+    x = rectangle->posX;
+    y = rectangle->posY;
 
-	C3D_BufInfo *bufInfo = C3D_GetBufInfo();
-	BufInfo_Init(bufInfo);
-	BufInfo_Add(bufInfo, textVtxArray, sizeof(textVertex_s), 2, 0x10);
-	//Set the vertices
-	arrayIndex = textVtxArrayPos;
-	addTextVertex(x, y + height, rectangle->depth, 0.0f, 1.f); //left bottom
-	addTextVertex(x + width, y + height, rectangle->depth, 1.f, 1.f); //right bottom
-	addTextVertex(x, y, rectangle->depth, 0.0f, 0.0f); //left top
-	addTextVertex(x + width, y, rectangle->depth, 1.f, 0.0f); //right top
+    C3D_BufInfo *bufInfo = C3D_GetBufInfo();
+    BufInfo_Init(bufInfo);
+    BufInfo_Add(bufInfo, textVtxArray, sizeof(textVertex_s), 2, 0x10);
+    //Set the vertices
+    arrayIndex = textVtxArrayPos;
+    addTextVertex(x, y + height, rectangle->depth, 0.0f, 1.f); //left bottom
+    addTextVertex(x + width, y + height, rectangle->depth, 1.f, 1.f); //right bottom
+    addTextVertex(x, y, rectangle->depth, 0.0f, 0.0f); //left top
+    addTextVertex(x + width, y, rectangle->depth, 1.f, 0.0f); //right top
 
-	resetC3Denv();
-	env = C3D_GetTexEnv(0);
-	C3D_TexBind(0, &(rectangle->sprite->texture));
-	C3D_TexEnvBufUpdate(C3D_RGB, 0);
-	C3D_TexEnvSrc(env, C3D_RGB, GPU_TEXTURE0, 0, 0);
-	C3D_TexEnvSrc(env, C3D_Alpha, GPU_CONSTANT, 0, 0);
-	C3D_TexEnvOpRgb(env, 0, 0, 0);
-	C3D_TexEnvOpAlpha(env, 0, 0, 0);
-	C3D_TexEnvFunc(env, C3D_Both, GPU_REPLACE);
-	C3D_TexEnvColor(env, 0xFFFFFFFF);
+    resetC3Denv();
+    env = C3D_GetTexEnv(0);
+    C3D_TexBind(0, &(rectangle->sprite->texture));
+    C3D_TexEnvBufUpdate(C3D_RGB, 0);
+    C3D_TexEnvSrc(env, C3D_RGB, GPU_TEXTURE0, 0, 0);
+    C3D_TexEnvSrc(env, C3D_Alpha, GPU_CONSTANT, 0, 0);
+    C3D_TexEnvOpRgb(env, 0, 0, 0);
+    C3D_TexEnvOpAlpha(env, 0, 0, 0);
+    C3D_TexEnvFunc(env, C3D_Both, GPU_REPLACE);
+    C3D_TexEnvColor(env, 0xFFFFFFFF);
 
-	//Draw 
-	C3D_DrawArrays(GPU_TRIANGLE_STRIP, arrayIndex, 4);
+    //Draw
+    C3D_DrawArrays(GPU_TRIANGLE_STRIP, arrayIndex, 4);
 }
 
 sprite_t *newSprite(int width, int height)
@@ -229,11 +229,11 @@ sprite_t *newSprite(int width, int height)
 
     sprite->width = (float)width;
     sprite->height = (float)height;
-	sprite->drawColor = 0xFFFFFFFF;
-	sprite->isGreyedOut = false;
-	sprite->isHidden = false;
-	sprite->depth = 0.0f;
-	sprite->amount = 1.f;
+    sprite->drawColor = 0xFFFFFFFF;
+    sprite->isGreyedOut = false;
+    sprite->isHidden = false;
+    sprite->depth = 0.0f;
+    sprite->amount = 1.f;
     return (sprite);
 texInitError:
     free(sprite);
@@ -270,7 +270,7 @@ static void sceneInit(void)
     AttrInfo_Init(attrInfo);
     AttrInfo_AddLoader(attrInfo, 0, GPU_FLOAT, 3); // v0=position
     AttrInfo_AddLoader(attrInfo, 1, GPU_FLOAT, 2); // v1=texcoord
-                                                   
+
     // Compute the projection matrix
     Mtx_OrthoTilt(&top.projection, 0.0f, 400.0f, 240.0f, 0.0f, 0.0f, 1.0f, true);
     Mtx_OrthoTilt(&bottom.projection, 0.0f, 320.0f, 240.0f, 0.0f, 0.0f, 1.0f, true);
@@ -315,13 +315,13 @@ void drawInit(void)
 
     // Initialize the top render target
     target = C3D_RenderTargetCreate(240, 400, GPU_RB_RGBA8, GPU_RB_DEPTH24_STENCIL8);
-	C3D_RenderTargetClear(target, C3D_CLEAR_ALL, CLEAR_COLOR, 0);
+    C3D_RenderTargetClear(target, C3D_CLEAR_ALL, CLEAR_COLOR, 0);
     C3D_RenderTargetSetOutput(target, GFX_TOP, GFX_LEFT, DISPLAY_TRANSFER_FLAGS);
     top.target = target;
 
     // Initialize the bottom render target
     target = C3D_RenderTargetCreate(240, 320, GPU_RB_RGBA8, GPU_RB_DEPTH24_STENCIL8);
-	C3D_RenderTargetClear(target, C3D_CLEAR_ALL, CLEAR_COLOR, 0);
+    C3D_RenderTargetClear(target, C3D_CLEAR_ALL, CLEAR_COLOR, 0);
     C3D_RenderTargetSetOutput(target, GFX_BOTTOM, GFX_LEFT, DISPLAY_TRANSFER_FLAGS);
     bottom.target = target;
 
@@ -351,12 +351,12 @@ void setTextColor(u32 color)
 {
 #ifndef CITRA
     C3D_TexEnv  *env;
-    
+
     env = C3D_GetTexEnv(0);
     C3D_TexEnvSrc(env, C3D_RGB, GPU_CONSTANT, 0, 0);
     C3D_TexEnvSrc(env, C3D_Alpha, GPU_TEXTURE0, GPU_CONSTANT, 0);
-	C3D_TexEnvOpRgb(env, 0, 0, 0);
-	C3D_TexEnvOpAlpha(env, 0, 0, 0);
+    C3D_TexEnvOpRgb(env, 0, 0, 0);
+    C3D_TexEnvOpAlpha(env, 0, 0, 0);
     C3D_TexEnvFunc(env, C3D_RGB, GPU_REPLACE);
     C3D_TexEnvFunc(env, C3D_Alpha, GPU_MODULATE);
     C3D_TexEnvColor(env, color);
@@ -420,7 +420,7 @@ void    findBestSize(float *sizeX, float *sizeY, float posXMin, float posXMax, f
 
 void renderText(float x, float y, float scaleX, float scaleY, bool baseline, const char *text, cursor_t *cursor)
 {
-	float 			depth = 0;
+    float           depth = 0;
     u32             flags;
     u32             code;
     int             lastSheet;
@@ -435,7 +435,7 @@ void renderText(float x, float y, float scaleX, float scaleY, bool baseline, con
     // Configure buffers
     bufInfo = C3D_GetBufInfo();
     BufInfo_Init(bufInfo);
-    BufInfo_Add(bufInfo, textVtxArray, sizeof(textVertex_s), 2, 0x10);  
+    BufInfo_Add(bufInfo, textVtxArray, sizeof(textVertex_s), 2, 0x10);
     firstX = x;
     flags = GLYPH_POS_CALC_VTXCOORD | (baseline ? GLYPH_POS_AT_BASELINE : 0);
     lastSheet = -1;
@@ -494,7 +494,7 @@ void drawText(screenPos_t pos, float size, u32 color, char *text, ...)
     va_list     vaList;
     float       posX;
     float       posY;
-    
+
     if (!frameStarted) return;
     posX = POS_X(pos);
     posY = POS_Y(pos);

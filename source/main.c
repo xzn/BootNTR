@@ -56,7 +56,7 @@ int main(void)
 
     kernelVersion = osGetKernelVersion();
     waitAllKeysReleased();
-	initMainMenu();
+    initMainMenu();
     ret = mainMenu();
     if (ret == 2) goto waitForExit;
     if (!g_exit)
