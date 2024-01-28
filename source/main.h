@@ -111,6 +111,11 @@ typedef enum    version_e
     // V33 = 1,
     SELECT_V36 = 2,
     SELECT_V36HR = 3,
+    SELECT_V36HR_MENU,
+    SELECT_V36HR_PM,
+    SELECT_V36HR_NWM,
+    SELECT_V36HR_GAME,
+    SELECT_V36HR_MAX
 }               version_t;
 
 /*

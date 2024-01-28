@@ -141,7 +141,7 @@ error:
     return (RESULT_ERROR);
 }
 
-u32 loadNTRBin(void)
+u32 loadNTRBin(version_t versionToLaunch)
 {
     u32                 size;
     u32                 alignedSize;
@@ -151,16 +151,16 @@ u32 loadNTRBin(void)
     char                path[0x100];
 
 
-    extern const char   *outNtrVersionStrings[4];
+    extern const char   **outNtrVersionStrings;
 
     // if (bnConfig->versionToLaunch == V32)
     //     strJoin(path, "/", "ntr.bin");
     // else
-        strJoin(path, bnConfig->config->binariesPath + 5, outNtrVersionStrings[bnConfig->versionToLaunch]);
+        strJoin(path, bnConfig->config->binariesPath + 5, outNtrVersionStrings[versionToLaunch]);
 
     // if (bnConfig->versionToLaunch == V32)
     //     strcpy(ntrConfig->path, path);
-    if (bnConfig->versionToLaunch >= SELECT_V36)
+    if (versionToLaunch == SELECT_V36)
     {
         strcpy(ntrConfig->path, path);
     #if EXTENDEDMODE
@@ -168,6 +168,10 @@ u32 loadNTRBin(void)
     #else
         ntrConfig->memorymode = 0;
     #endif
+    } else if (versionToLaunch == SELECT_V36HR) {
+        char *binPath = bnConfig->config->binariesPath;
+        if (!strncmp("sdmc:", binPath, 5)) binPath += 5;
+        strcpy(ntrConfig->path, binPath);
     }
 
     // Get size
@@ -208,15 +212,26 @@ Result      bnLoadAndExecuteNTR(void)
     u32     outAddr;
     u32     *bootArgs;
 
-    outAddr = loadNTRBin();
+    outAddr = loadNTRBin(bnConfig->versionToLaunch);
     if (outAddr == RESULT_ERROR)
     {
             goto error;
     }
+
     bootArgs = (u32 *)(outAddr + 4);
-    bootArgs[0] = 0;
-    bootArgs[1] = 0xb00d;
-    bootArgs[2] = (u32)ntrConfig;
+
+    if (bnConfig->versionToLaunch == SELECT_V36HR) {
+        bootArgs[0] = (u32)ntrConfig;
+        u32 menuBin = loadNTRBin(SELECT_V36HR_MENU);
+        if (menuBin == RESULT_ERROR) {
+            goto error;
+        }
+    } else {
+        bootArgs[0] = 0;
+        bootArgs[1] = 0xb00d;
+        bootArgs[2] = (u32)ntrConfig;
+    }
+
     ((funcType)(outAddr))();
     return (0);
 error:

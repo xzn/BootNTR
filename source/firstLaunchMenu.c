@@ -390,7 +390,11 @@ static void    setFiles(void)
 
     newAppTop(COLOR_BLANK, SKINNY, "Setting up 3.6 HR ...");
     updateUI();
-    ret = loadAndPatch(SELECT_V36HR);
+    for (int s = SELECT_V36HR; s < SELECT_V36HR_MAX; ++s) {
+        ret = loadAndPatch(s);
+        if (ret)
+            break;
+    }
     if (!bnConfig->isDebug)
         removeAppTop();
     if (ret)
