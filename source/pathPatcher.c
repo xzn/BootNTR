@@ -59,7 +59,7 @@ static const char *ntrVersionStrings[] =
     "",
 
     // "ntr.o3ds.bin",
-    "ntr.n3ds.bin",
+    "ntr.bin",
     "ntr.hr.boot.bin",
     "ntr.hr.menu.bin",
     "ntr.hr.pm.bin",
@@ -67,17 +67,21 @@ static const char *ntrVersionStrings[] =
     "ntr.hr.game.bin",
 };
 
-const char *const *outNtrVersionStrings = ntrVersionStrings;
-// const char *outNtrVersionStrings[4] =
-// {
-//     // "ntr_3_2.bin",
-//     // "ntr_3_3.bin",
-//     "",
-//     "",
+// const char **outNtrVersionStrings = ntrVersionStrings;
+const char *outNtrVersionStrings[] =
+{
+    // "ntr_3_2.bin",
+    // "ntr_3_3.bin",
+    "",
+    "",
 
-//     "ntr_3_6.bin",
-//     "ntr_3_6_hr.bin"
-// };
+    "ntr.bin",
+    "ntr.hr.boot.bin",
+    "ntr.hr.menu.bin",
+    "ntr.hr.pm.bin",
+    "ntr.hr.nwm.bin",
+    "ntr.hr.game.bin",
+};
 
 // There was a bug in libctu where DMAState was read as a u32 instead of a u8.
 // In order to fix the NTR bins, we have to patch those bugs by changing a LDR to LDRB

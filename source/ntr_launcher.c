@@ -151,7 +151,8 @@ u32 loadNTRBin(version_t versionToLaunch)
     char                path[0x100];
 
 
-    extern const char   **outNtrVersionStrings;
+    extern const char *outNtrVersionStrings[];
+    // extern const char **outNtrVersionStrings;
 
     // if (bnConfig->versionToLaunch == V32)
     //     strJoin(path, "/", "ntr.bin");
