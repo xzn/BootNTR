@@ -113,7 +113,7 @@ exit:
     return;
 }
 
-int    configInit(void)
+int    configInit(int forceDebug)
 {
     config_t    *config;
     Handle      fsuHandle = *fsGetSessionHandle();
@@ -138,7 +138,7 @@ int    configInit(void)
     bnConfig = &g_bnConfig;
     ntrConfig->fsUserHandle = fsuHandle;
     g_bnConfig.isMode3 = EXTENDEDMODE;
-    g_bnConfig.isDebug = DEBUGMODE;
+    g_bnConfig.isDebug = DEBUGMODE || forceDebug;
     g_bnConfig.isNew3DS = isNew3DS;
 
     config = (config_t *)calloc(1, sizeof(config_t));

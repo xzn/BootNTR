@@ -16,6 +16,7 @@ int main(void)
     u32         keys;
     u32         kernelVersion;
     int         ret;
+    int         debug;
     int         boot_success = 0;
 
     gfxInitDefault();
@@ -26,9 +27,12 @@ int main(void)
     initUI();
     hidScanInput();
     keys = (hidKeysDown() | hidKeysHeld());
-    if (keys & KEY_SELECT)
+    debug = 0;
+    if (keys & KEY_SELECT) {
         resetConfig();
-    if (configInit() != 0) {
+        debug = 1;
+    }
+    if (configInit(debug) != 0) {
         g_exit = true;
         goto exit;
     }

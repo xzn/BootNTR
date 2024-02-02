@@ -92,7 +92,7 @@ typedef struct  bootNtrConfig_s
     bool        isNew3DS;
 }               bootNtrConfig_t;
 
-int    configInit(void);
+int    configInit(int forceDebug);
 void    resetConfig(void);
 void    configExit(void);
 bool    checkPath(void);

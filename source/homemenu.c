@@ -10,7 +10,7 @@ extern char             *g_secondary_error;
 #if DEBUG
     #define newAppTopDebug(...) newAppTop(...)
 #else
-    #define newAppTopDebug(...)
+    #define newAppTopDebug(...) do { if (bnConfig->isDebug) { newAppTop(__VA_ARGS__); } } while (0)
 #endif
 
 /*Result  bnInitParamsByHomeMenu(void)
