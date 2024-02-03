@@ -221,7 +221,8 @@ Result  loadAndPatch(version_t version)
     fread(mem, size, 1, ntr);
     fclose(ntr);
     svcFlushProcessDataCache(CURRENT_PROCESS_HANDLE, (u32)mem, newSize);
-    fixDMAStateBug((u32*)mem, size);
+    if (version <= SELECT_V36)
+        fixDMAStateBug((u32*)mem, size);
     // if (version != V32)
         patchBinary(mem, size);
     ntr = fopen(outPath, "wb");
