@@ -34,7 +34,14 @@ int main(void)
     }
     if (configInit(debug) != 0) {
         g_exit = true;
-        goto exit;
+
+        while (1) {
+            hidScanInput();
+            keys = hidKeysDown();
+            if (keys)
+                break;
+        }
+        goto exit_config;
     }
 
     // If keys == X or if config say we should check an update
@@ -59,7 +66,8 @@ int main(void)
     }*/
 
     kernelVersion = osGetKernelVersion();
-    waitAllKeysReleased();
+    if (!debug)
+        waitAllKeysReleased();
     initMainMenu();
     ret = mainMenu();
     if (ret == 2) goto waitForExit;
@@ -136,6 +144,7 @@ exit:
     if (boot_success)
         configExit();
     exitMainMenu();
+exit_config:
     exitUI();
     acExit();
     amExit();

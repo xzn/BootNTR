@@ -436,7 +436,6 @@ int firstLaunch(void)
     p_globalPath = bnConfig->config->binariesPath;
     p_pluginPath = bnConfig->config->pluginPath;
 again:
-    waitAllKeysReleased();
     status = g_status = 0;
     changeWindowContent(window, mainWindow);
     useDefaultButton->show(useDefaultButton);
@@ -458,7 +457,10 @@ again:
             }
         }
         updateUI();
-        if (status & e_MAIN) goto again;
+        if (status & e_MAIN) {
+            waitAllKeysReleased();
+            goto again;
+        }
         else if (status & e_DEFAULT) defaultSettings();
         else if (status & e_SECOND) secondSettings();
         else if (status & e_CUSTOM) customSettings();
