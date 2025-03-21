@@ -10,8 +10,14 @@
     (((major)<<24)|((minor)<<16)|((revision)<<8))
 #endif
 
-#define MINOR_REVISION (18)
+#define MINOR_REVISION (25)
+
+#ifndef CURRENT_CONFIG_VERSION
+#include "../config_ver.h"
+#endif
+#ifndef CURRENT_CONFIG_VERSION
 #define CURRENT_CONFIG_VERSION  (SYSTEM_VERSION(1, 0, 13) | MINOR_REVISION)
+#endif
 
 #define SECONDS_IN_WEEK     604800
 #define SECONDS_IN_DAY      86400
