@@ -255,3 +255,4 @@ ModelManifest.xml
 romfs/*.bin
 output/
 BootNTR.code-workspace
+config_ver.h

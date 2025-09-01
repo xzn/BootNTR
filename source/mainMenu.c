@@ -47,8 +47,8 @@ void    initMainMenu(void)
     if (inited) return;
     inited = true;
 
-    if (!bnConfig->isMode3)
-    {
+    // if (!bnConfig->isMode3)
+    // {
         sprite_t *sprite;
 
         newSpriteFromPNG(&desiredVersionSprite, "romfs:/sprites/textSprites/touchDesiredVersion.png");
@@ -66,7 +66,7 @@ void    initMainMenu(void)
         V36Button = newButton(11.0f, 94.0f, selectVersion, 3, tinyButtonBGSprite, sprite);
         newSpriteFromPNG(&sprite, "romfs:/sprites/textSprites/36HRVersion.png");
         V36HRButton = newButton(11.0f, 152.0f, selectVersion, 4, tinyButtonBGSprite, sprite);
-    }
+    // }
 
     newSpriteFromPNG(&pressExitSprite, "romfs:/sprites/textSprites/pressBExit.png");
 
@@ -78,15 +78,15 @@ void    initMainMenu(void)
 
 void    exitMainMenu(void)
 {
-    if (!bnConfig->isMode3)
-    {
+    // if (!bnConfig->isMode3)
+    // {
         // destroyButton(V32Button);
         // destroyButton(V33Button);
         destroyButton(V36Button);
         destroyButton(V36HRButton);
         deleteSprite(tinyButtonBGSprite);
         deleteSprite(desiredVersionSprite);
-    }
+    // }
 
     deleteSprite(pressExitSprite);
 }
@@ -109,7 +109,7 @@ int     mainMenu(void)
     bool        noTimer;
 
     static bool first = true;
-    if (first && !bnConfig->isMode3) {
+    if (first /* && !bnConfig->isMode3 */) {
         // V32Button->show(V32Button);
         // V33Button->show(V33Button);
         V36Button->show(V36Button);
@@ -122,7 +122,7 @@ int     mainMenu(void)
     }
 
     waitAllKeysReleased();
-    if (!bnConfig->isMode3 && !bnConfig->config->flags) noTimer = true;
+    if (/* !bnConfig->isMode3 && */ !bnConfig->config->flags) noTimer = true;
     else noTimer = false;
     appInfoDisableAutoUpdate();
     if (!noTimer)
@@ -138,7 +138,7 @@ int     mainMenu(void)
     {
         keys = hidKeysDown() | hidKeysHeld();
         // if (keys == (KEY_L | KEY_R | KEY_X | KEY_DUP)) goto dumpMode;
-        if (keys && !bnConfig->isMode3)
+        if (keys /* && !bnConfig->isMode3 */)
         {
             noTimer = true;
             removeAppStatus();

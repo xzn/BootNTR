@@ -65,6 +65,7 @@ static const char *ntrVersionStrings[] =
     "ntr.hr.pm.bin",
     "ntr.hr.nwm.bin",
     "ntr.hr.game.bin",
+    "ntr.hr.nwm.o3ds.bin",
 };
 
 // const char **outNtrVersionStrings = ntrVersionStrings;
@@ -81,6 +82,7 @@ const char *outNtrVersionStrings[] =
     "ntr.hr.pm.bin",
     "ntr.hr.nwm.bin",
     "ntr.hr.game.bin",
+    "ntr.hr.nwm.o3ds.bin",
 };
 
 // There was a bug in libctu where DMAState was read as a u32 instead of a u8.
@@ -168,13 +170,13 @@ Result  loadAndPatch(version_t version)
     char    inPath[0x100];
     char    outPath[0x100];
     u8      *mem;
-    bool    isNew3DS = bnConfig->isNew3DS;
+    // bool    isNew3DS = bnConfig->isNew3DS;
 
-    if (!isNew3DS) {
-        clearTop(1);
-        newAppTop(COLOR_SALMON, SKINNY, "Support New 3DS only (Old 3DS detected).");
-        goto error;
-    }
+    // if (!isNew3DS) {
+    //     clearTop(1);
+    //     newAppTop(COLOR_SALMON, SKINNY, "Support New 3DS only (Old 3DS detected).");
+    //     goto error;
+    // }
 
     binPath = bnConfig->config->binariesPath;
     plgPath = bnConfig->config->pluginPath;
