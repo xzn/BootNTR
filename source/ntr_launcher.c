@@ -233,6 +233,24 @@ Result      bnLoadAndExecuteNTR(void)
         bootArgs[2] = (u32)ntrConfig;
     }
 
+    if (bnConfig->versionToLaunch == SELECT_V36HR && !bnConfig->isNew3DS) {
+        newAppStatus(DEFAULT_COLOR, TINY | SKINNY | NEWLINE, "Streaming performance");
+        newAppStatus(DEFAULT_COLOR, TINY | SKINNY, "is limited on Old 3DS.");
+        newAppStatus(DEFAULT_COLOR, TINY | SKINNY | NEWLINE, "Press any key to");
+        newAppStatus(DEFAULT_COLOR, TINY | SKINNY, "continue...");
+
+        waitAllKeysReleased();
+        while (aptMainLoop())
+        {
+            updateUI();
+            hidScanInput();
+            if (hidKeysDown())
+                break;
+        }
+
+        clearStatus(true);
+    }
+
     ((funcType)(outAddr))();
     return (0);
 error:

@@ -157,7 +157,7 @@ int    configInit(int forceDebug)
             goto error;
         }
         if (!saveConfig()) {
-            newAppTop(DEFAULT_COLOR, 0, "A problem occured while saving the settings.");
+            newAppTop(DEFAULT_COLOR, 0, "A problem occurred while saving the settings.");
             updateUI();
             wait(2);
         }
