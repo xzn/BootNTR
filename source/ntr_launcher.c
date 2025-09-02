@@ -161,14 +161,14 @@ u32 loadNTRBin(version_t versionToLaunch)
 
     // if (bnConfig->versionToLaunch == V32)
     //     strcpy(ntrConfig->path, path);
+#if EXTENDEDMODE
+    ntrConfig->memorymode = 3;
+#else
+    ntrConfig->memorymode = 0;
+#endif
     if (versionToLaunch == SELECT_V36)
     {
         strcpy(ntrConfig->path, path);
-    #if EXTENDEDMODE
-        ntrConfig->memorymode = 3;
-    #else
-        ntrConfig->memorymode = 0;
-    #endif
     } else if (versionToLaunch == SELECT_V36HR) {
         char *binPath = bnConfig->config->binariesPath;
         if (!strncmp("sdmc:", binPath, 5)) binPath += 5;
