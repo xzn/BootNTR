@@ -122,7 +122,7 @@ int     mainMenu(void)
     }
 
     waitAllKeysReleased();
-    if (/* !bnConfig->isMode3 && */ !bnConfig->config->flags) noTimer = true;
+    if (bnConfig->isMode3 || !bnConfig->config->flags) noTimer = true;
     else noTimer = false;
     appInfoDisableAutoUpdate();
     if (!noTimer)
@@ -138,7 +138,7 @@ int     mainMenu(void)
     {
         keys = hidKeysDown() | hidKeysHeld();
         // if (keys == (KEY_L | KEY_R | KEY_X | KEY_DUP)) goto dumpMode;
-        if (keys /* && !bnConfig->isMode3 */)
+        if (keys || bnConfig->isMode3)
         {
             noTimer = true;
             removeAppStatus();

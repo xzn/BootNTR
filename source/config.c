@@ -124,12 +124,12 @@ int    configInit(int forceDebug)
    //  FSUSER_Initialize(fsuHandle);
 
     APT_CheckNew3DS(&isNew3DS);
-    if (!isNew3DS) {
-        newAppTop(DEFAULT_COLOR, 0, "This version of BootNTR supports New 3DS only.");
-        updateUI();
-        wait(2);
-        goto error;
-    }
+    // if (!isNew3DS) {
+    //     newAppTop(DEFAULT_COLOR, 0, "This version of BootNTR supports New 3DS only.");
+    //     updateUI();
+    //     wait(2);
+    //     goto error;
+    // }
 
     memset(&g_ntrConfig, 0, sizeof(g_ntrConfig));
     memset(&g_bnConfig, 0, sizeof(g_bnConfig));
