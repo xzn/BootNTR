@@ -208,6 +208,17 @@ error:
     return (RESULT_ERROR);
 }
 
+static void waitAnyKey(void) {
+    waitAllKeysReleased();
+    while (aptMainLoop())
+    {
+        updateUI();
+        hidScanInput();
+        if (hidKeysDown())
+            break;
+    }
+}
+
 Result      bnLoadAndExecuteNTR(void)
 {
     u32     outAddr;
@@ -234,21 +245,33 @@ Result      bnLoadAndExecuteNTR(void)
     }
 
     if (bnConfig->versionToLaunch == SELECT_V36HR && !bnConfig->isNew3DS) {
-        newAppStatus(DEFAULT_COLOR, TINY | SKINNY | NEWLINE, "Streaming performance");
-        newAppStatus(DEFAULT_COLOR, TINY | SKINNY, "is limited on Old 3DS.");
-        newAppStatus(DEFAULT_COLOR, TINY | SKINNY | NEWLINE, "Press any key to");
-        newAppStatus(DEFAULT_COLOR, TINY | SKINNY, "continue...");
+        if (bnConfig->isMode3) {
+            newAppStatus(DEFAULT_COLOR, TINY | SKINNY | NEWLINE, "Streaming performance");
+            newAppStatus(DEFAULT_COLOR, TINY | SKINNY, "is limited on Old 3DS.");
+            newAppStatus(DEFAULT_COLOR, TINY | SKINNY, "...");
 
-        waitAllKeysReleased();
-        while (aptMainLoop())
-        {
-            updateUI();
-            hidScanInput();
-            if (hidKeysDown())
-                break;
+            waitAnyKey();
+
+            clearStatus(true);
+
+            newAppStatus(DEFAULT_COLOR, TINY | SKINNY | NEWLINE, "Game plugins not");
+            newAppStatus(DEFAULT_COLOR, TINY | SKINNY, "available on Mode3.");
+            newAppStatus(DEFAULT_COLOR, TINY | SKINNY | NEWLINE, "Use regular 3.6");
+            newAppStatus(DEFAULT_COLOR, TINY | SKINNY, "if needed...");
+
+            waitAnyKey();
+
+            clearStatus(true);
+        } else {
+            newAppStatus(DEFAULT_COLOR, TINY | SKINNY | NEWLINE, "Streaming performance");
+            newAppStatus(DEFAULT_COLOR, TINY | SKINNY, "is limited on Old 3DS.");
+            newAppStatus(DEFAULT_COLOR, TINY | SKINNY | NEWLINE, "Press any key to");
+            newAppStatus(DEFAULT_COLOR, TINY | SKINNY, "continue...");
+
+            waitAnyKey();
+
+            clearStatus(true);
         }
-
-        clearStatus(true);
     }
 
     ((funcType)(outAddr))();

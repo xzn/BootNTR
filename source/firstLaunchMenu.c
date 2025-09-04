@@ -392,13 +392,6 @@ static void    setFiles(void)
     newAppTop(COLOR_BLANK, SKINNY, "Setting up 3.6 HR ...");
     updateUI();
     for (int s = SELECT_V36HR; s < SELECT_V36HR_MAX; ++s) {
-        if (bnConfig->isNew3DS) {
-            if (s == SELECT_V36HR_NWM_O3DS)
-                continue;
-        } else {
-            if (s == SELECT_V36HR_NWM)
-                continue;
-        }
         ret = loadAndPatch(s);
         if (ret)
             break;

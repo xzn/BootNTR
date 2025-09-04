@@ -66,6 +66,7 @@ static const char *ntrVersionStrings[] =
     "ntr.hr.nwm.bin",
     "ntr.hr.game.bin",
     "ntr.hr.nwm.o3ds.bin",
+    "ntr.hr.nwm.mem3.bin",
 };
 
 // const char **outNtrVersionStrings = ntrVersionStrings;
@@ -83,6 +84,7 @@ const char *outNtrVersionStrings[] =
     "ntr.hr.nwm.bin",
     "ntr.hr.game.bin",
     "ntr.hr.nwm.o3ds.bin",
+    "ntr.hr.nwm.mem3.bin",
 };
 
 // There was a bug in libctu where DMAState was read as a u32 instead of a u8.

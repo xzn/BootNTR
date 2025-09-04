@@ -116,6 +116,7 @@ typedef enum    version_e
     SELECT_V36HR_NWM,
     SELECT_V36HR_GAME,
     SELECT_V36HR_NWM_O3DS,
+    SELECT_V36HR_NWM_MEM3,
     SELECT_V36HR_MAX
 }               version_t;
 
