@@ -51,7 +51,7 @@ static const char *fixedName[RELOC_COUNT] =
 
 static char fixedPath[RELOC_COUNT][0x100] = { 0 };
 
-static const char *ntrVersionStrings[] =
+static const char *ntrVersionStrings[SELECT_V36HR_MAX] =
 {
     // "ntr_3_2.bin",
     // "ntr_3_3.bin",
@@ -67,10 +67,11 @@ static const char *ntrVersionStrings[] =
     "ntr.hr.game.bin",
     "ntr.hr.nwm.o3ds.bin",
     "ntr.hr.nwm.mem3.bin",
+    "ntr.hr.csnd.bin",
 };
 
 // const char **outNtrVersionStrings = ntrVersionStrings;
-const char *outNtrVersionStrings[] =
+const char *outNtrVersionStrings[SELECT_V36HR_MAX] =
 {
     // "ntr_3_2.bin",
     // "ntr_3_3.bin",
@@ -85,6 +86,7 @@ const char *outNtrVersionStrings[] =
     "ntr.hr.game.bin",
     "ntr.hr.nwm.o3ds.bin",
     "ntr.hr.nwm.mem3.bin",
+    "ntr.hr.csnd.bin",
 };
 
 // There was a bug in libctu where DMAState was read as a u32 instead of a u8.
